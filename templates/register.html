@@ -1,0 +1,37 @@
+{% extends "layout.html" %}
+
+{% block title %}
+- Registro
+{% endblock %}
+
+{% block main %}
+<div class="container-fluid cuerpo">
+    <div class="col-3 login" align="center">
+        <form action="/register" method="post">
+            <h3 class="sign pt-4 pb-4" align="center">Registro</h3>
+            <div class="form-group logindata">
+                <input autocomplete="off" align="center" autofocus class="form-control username text-center mb-4"
+                    name="nombre_usuario" placeholder="Usuario" type="text" />
+
+                <input autocomplete="off" align="center" class="form-control username text-center mb-4"
+                    name="correo" placeholder="Correo" type="email" />
+
+                <input class="form-control password text-center mb-4" align="center" name="password"
+                    placeholder="Contraseña" type="password" />
+
+                <input class="form-control password text-center mb-4" align="center" name="confirmation"
+                    placeholder="Repetir contraseña" type="password" />
+
+                    <input autocomplete="off" align="center" autofocus class="form-control username text-center mb-4"
+                    name="numero_telefono" placeholder="Telefono" type="tel" />
+            </div>
+            <div class="form-group" align="center">
+                <button class="btn btn-primary my-2 submit" type="submit">Registar</button>
+            </div>
+            <a href="login" class="linkRegistro">¿Ya tienes una cuenta?</a>
+        </form>
+    </div>
+</div>
+</div>
+
+{% endblock %}
