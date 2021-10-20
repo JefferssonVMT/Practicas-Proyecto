@@ -1,29 +1,35 @@
 {% extends "layout.html" %}
 
-{% block title %}
-- Registro
-{% endblock %}
+{%block title%}
 
-{% block main %}
-<div class="container-fluid cuerpo">
-    <div class="col-3 login" align="center">
+Registro
+
+{% endblock%}
+
+{% block main%}
+<div class="login-box">
+    <div class="caja" id="register" align="center">
         <form action="/register" method="post">
-            <h3 class="sign pt-4 pb-4" align="center">Registro</h3>
-            <div class="form-group logindata">
+
+            <img class="icon" src="static/imagenes/icono.png"/>
+
+            <h3 class="sign pt-2 pb-4" align="center">Registro</h3>
+
+            <div class="form-group">
                 <input autocomplete="off" align="center" autofocus class="form-control username text-center mb-4"
-                    name="nombre_usuario" placeholder="Usuario" type="text" />
+                    name="nombre_usuario" placeholder="Usuario" type="text" required/>
 
                 <input autocomplete="off" align="center" class="form-control username text-center mb-4"
-                    name="correo" placeholder="Correo" type="email" />
+                    name="correo" placeholder="Correo" type="email" required/>
 
                 <input class="form-control password text-center mb-4" align="center" name="password"
-                    placeholder="Contraseña" type="password" />
+                    placeholder="Contraseña" type="password" required/>
 
                 <input class="form-control password text-center mb-4" align="center" name="confirmation"
-                    placeholder="Repetir contraseña" type="password" />
+                    placeholder="Repetir contraseña" type="password" required/>
 
                     <input autocomplete="off" align="center" autofocus class="form-control username text-center mb-4"
-                    name="numero_telefono" placeholder="Telefono" type="tel" />
+                    name="numero_telefono" placeholder="Telefono" type="tel" required/>
             </div>
             <div class="form-group" align="center">
                 <button class="btn btn-primary my-2 submit" type="submit">Registar</button>

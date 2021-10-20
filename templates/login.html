@@ -1,25 +1,31 @@
 {% extends "layout.html" %}
 
-{% block title %}
-- Iniciar sesion
-{% endblock %}
+{%block title%}
 
-{% block main %}
-<div class="container-fluid cuerpo">
-    <div class="col-3 login" align="center">
+Login
+
+{% endblock%}
+
+{% block main%}
+<div class="login-box">
+    <div class="caja" id="login" align="center">
         <form action="/login" method="post">
-            <h3 class="sign pt-4 pb-4" align="center">Iniciar sesión</h3>
-            <div class="form-group logindata">
+
+            <img class="icon" src="static/imagenes/icono.png" />
+
+            <h3 class="sign pt-2 pb-4" align="center">Iniciar sesión</h3>
+
+            <div class="form-group">
                 <input autocomplete="off" align="center" autofocus class="form-control username text-center mb-4"
                     name="nombre_usuario" placeholder="Usuario" type="text" />
                 <input class="form-control password text-center mb-2" align="center" name="password"
                     placeholder="Contraseña" type="password" />
-            </div>
-            <div class="form-group" align="center">
-                <button class="btn btn-primary my-2 submit" type="submit">Iniciar sesión</button>
-            </div>
-            <a href="register" class="linkRegistro">¿No tienes una cuenta?</a>
+                <div class="form-group" align="center">
+                    <button class="submit" type="submit">Iniciar sesión</button>
+                </div>
         </form>
+        <div id="formFooter">
+            <a href="register">¿No tienes una cuenta?</a>
+        </div>
     </div>
-</div>
-{% endblock %}
+    {% endblock %}

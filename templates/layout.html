@@ -5,7 +5,7 @@
   <meta charset="UTF-8">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title> Titulo Aqui {% block title %} {% endblock %}</title>
+  <title>{% block title %} {% endblock %}</title>
 
   <link rel="icon" href="" type="image/png">
 
@@ -22,25 +22,25 @@
 
 <body>
 
-  <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
-    <a class="navbar-brand" href="/">Tutulo Aqui</a>
+  {% if session.user_id %}
+  <nav class="navbar navbar-light bg-light">
+    <a class="navbar-brand" href="/">Home</a>
+        <a class="nav-link" href="#"><i class="fas fa-plus"></i></a>
 
-    {% if session.user_id %}
-    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarTogglerDemo03"
-      aria-controls="navbarTogglerDemo03" aria-expanded="false" aria-label="Toggle navigation">
-      <span class="navbar-toggler-icon"></span>
-    </button>
-
-    <div class="collapse navbar-collapse justify-content-end text-center" id="navbarTogglerDemo03">
-
-      <ul class="navbar-nav mt-2 mt-lg-0">
-        <li class="nav-item">
-          <a class="nav-link" href="/logout">Cerrar sesion</a>
-        </li>
-      </ul>
-
-      {% endif %}
-
+        <div class="nav-item dropleft">
+          <a class="nav-link dropdown-toggle" id="navbarDropdownMenuLink" role="button" data-toggle="dropdown"
+            aria-haspopup="true" aria-expanded="false">
+            <i class="fas fa-user"></i>
+          </a>
+          <div class="dropdown-menu">
+            <a class="dropdown-item" href="/logout">Cerrar sesión</a>
+            <a class="dropdown-item" href="/actualizarcontraseña">Actualizar contraseña</a>
+          </div>
+        </div>
+      </div>
+    </div>
+    
+    {% endif %}
 
   </nav>
 

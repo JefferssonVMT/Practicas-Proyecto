@@ -54,28 +54,9 @@ def register():
         return render_template("register.html")
 
     elif request.method == "POST":
-        if not request.form.get("nombre_usuario"):
-            flash("Debe ingresar el nombre de usuario", "error")
-            return render_template("register.html")
 
-        if not request.form.get("correo"):
-            flash("Debe ingresar el correo", "error")
-            return render_template("register.html")
-
-        elif not request.form.get("password"):
-            flash("Debe ingresar la contraseña", "error")
-            return render_template("register.html")
-
-        elif not request.form.get("confirmation"):
-            flash("Debe confirmar la contraseña", "error")
-            return render_template("register.html")
-
-        elif not request.form.get("password") == request.form.get("confirmation"):
+        if not request.form.get("password") == request.form.get("confirmation"):
             flash("Las contraseñas no coinciden", "error")
-            return render_template("register.html")
-
-        if not request.form.get("numero_telefono"):
-            flash("Debe ingresar el numero de telefono", "error")
             return render_template("register.html")
 
         if db.execute(f"SELECT * FROM usuarios WHERE nombre_usuario = '{request.form.get('nombre_usuario')}'").rowcount > 0:
@@ -86,8 +67,14 @@ def register():
             password = generate_password_hash(request.form.get("password"))
             db.execute(f"INSERT INTO usuarios (nombre_usuario, correo, hash, numero_telefono) VALUES ('{request.form.get('nombre_usuario')}', '{request.form.get('correo')}', '{password}', '{request.form.get('numero_telefono')}')")
             db.commit()
+
+            id = db.execute(f"SELECT id FROM usuarios WHERE nombre_usuario= '{request.form.get('nombre_usuario')}'").fetchone()["id"]
+
+            # Remember which user has logged in
+            session["user_id"] = id
+
             flash("Registrado!", "exito")
-            return render_template("login.html")
+            return redirect("/")
 
 
 @app.route("/login", methods=["GET", "POST"])
@@ -118,6 +105,33 @@ def login():
 
     else:
         return render_template("login.html")
+
+
+@app.route("/actualizarcontraseña", methods=["GET", "POST"])
+@login_required
+def cambiarcontraseña():
+    if request.method == "GET":
+        return render_template("actualizarcontraseña.html")
+
+    elif request.method == "POST":
+        newpassword = request.form.get("password")
+        confirmation = request.form.get("confirmation")
+
+        # Validar que password y confirmation tengan los mismos valores
+        if newpassword != confirmation:
+            flash("Las contraseñas no coindicen", "error")
+            return render_template("actualizarcontraseña.html")
+
+        # Ingresar los datos a la base de datos
+        else:
+
+            password = generate_password_hash(newpassword)
+            db.execute(f"UPDATE usuarios SET hash = '{password}' WHERE id = {session['user_id']}")
+            db.commit()
+            flash("Contraseña actualizada", "exito")
+
+            # Redireccionar al index
+            return redirect("/")
 
 
 @app.route("/logout")
