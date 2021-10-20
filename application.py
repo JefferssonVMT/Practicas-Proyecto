@@ -84,15 +84,7 @@ def login():
     session.clear()
 
     if request.method == "POST":
-
-        if not request.form.get("nombre_usuario"):
-            flash("Debe ingresar un usuario", "error")
-            return render_template("login.html")
-
-        elif not request.form.get("password"):
-            flash("Debe ingresar una contraseña", "error")
-            return render_template("login.html")
-
+        
         query = db.execute(f"select * from usuarios WHERE nombre_usuario = '{request.form.get('nombre_usuario')}'").fetchone()
 
         if not query or not check_password_hash(query['hash'], request.form.get("password")):
