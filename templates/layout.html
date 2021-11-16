@@ -23,18 +23,19 @@
 <body>
 
   {% if session.user_id %}
-  <nav class="navbar navbar-light bg-light">
+  <nav class="navbar navbar-dark">
     <a class="navbar-brand" href="/">Home</a>
-        <a class="nav-link" href="#"><i class="fas fa-plus"></i></a>
+        <a class="nav-link" href="/nuevapublicacion"><i class="fas fa-plus"></i></a>
 
         <div class="nav-item dropleft">
-          <a class="nav-link dropdown-toggle" id="navbarDropdownMenuLink" role="button" data-toggle="dropdown"
+          <a class="nav-link dropdown-toggle" id="navbarDropdownMenuLink" role="button" data-toggle="dropdown" style= "color: white"
             aria-haspopup="true" aria-expanded="false">
             <i class="fas fa-user"></i>
           </a>
           <div class="dropdown-menu">
-            <a class="dropdown-item" href="/logout">Cerrar sesión</a>
+            <a class="dropdown-item" href="/micuenta">Mi cuenta</a>
             <a class="dropdown-item" href="/actualizarcontraseña">Actualizar contraseña</a>
+            <a class="dropdown-item" href="/logout">Cerrar sesión</a>
           </div>
         </div>
       </div>

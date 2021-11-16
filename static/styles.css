@@ -1,4 +1,11 @@
 @charset "UTF-8";
+@import url("https://fonts.googleapis.com/css2? family = Noto + Serif + Display: wght @ 300 & display = swap");
+@import url("https://fonts.googleapis.com/css2?");
+@import url("https://fonts.googleapis.com/css2?family=Abel&family=Great+Vibes&family=Indie+Flower&family=Poller+One&display=swap");
+@import url("https://fonts.googleapis.com/css?family=Lato:400,300,700");
+@import url("https://fonts.googleapis.com/css2?family=Wire+One&display=swap");
+@import url("https://fonts.googleapis.com/css?family=Raleway:400,700,900");
+/* Base styling */
 .icon {
   display: block;
   margin-left: auto;
@@ -7,8 +14,13 @@
 
 /* Navbar */
 .navbar {
-  background: -webkit-gradient(linear, left top, left bottom, from(#daeff6), color-stop(#d2edf3), to(#bee2fa));
-  background: linear-gradient(#daeff6, #d2edf3, #bee2fa);
+  background: #1c3755;
+}
+
+body, html {
+  background: -webkit-gradient(linear, left top, left bottom, from(#daeff6), color-stop(#d2edf3), to(#d8e5fa));
+  background: linear-gradient(#daeff6, #d2edf3, #8fd5f5);
+  background-attachment: fixed;
 }
 
 .dropdown-menu.show {
@@ -19,8 +31,6 @@
 
 /* Pagina de login*/
 .login-box {
-  display: -webkit-box;
-  display: -ms-flexbox;
   display: flex;
   text-align: center;
   -webkit-box-pack: center;
@@ -28,7 +38,7 @@
           justify-content: center;
   -ms-flex-line-pack: center;
       align-content: center;
-  color: #252585;
+  color: #1c3755;
   font-weight: bold;
   font-size: 23px;
   margin-bottom: 0%;
@@ -37,13 +47,13 @@
 
 .login-box a {
   text-shadow: 0px 0px 3px rgba(117, 117, 117, 0.12);
-  color: #3966ad;
+  color: #1c3755;
   text-decoration: none;
   font-family: 'Prata', serif;
 }
 
 .login-box h3 {
-  color: #3367a3;
+  color: #1c3755; 
   text-align: center;
   font-family: "Poller One", cursive;
 }
@@ -63,12 +73,12 @@
 
 #register {
   width: 500px;
-  height: 650px;
+  height: 670px;
   margin: 7em auto;
 }
 
 #actualizarcontraseña {
-  width: 400px;
+  width: 450px;
   height: 500px;
   margin: 7em auto;
 }
@@ -116,15 +126,14 @@
 }
 
 .username:hover, .password:hover {
-  border: 2px solid #072d58 !important;
+  border: 2px solid #496d7d !important;
 }
 
 .submit {
   cursor: pointer;
   border-radius: 0.5rem;
   color: #fff;
-  background: -webkit-gradient(linear, left top, right top, from(#7895db), to(#558be2));
-  background: linear-gradient(to right, #7895db, #558be2);
+  background: #1c3755;
   border: 0;
   padding-left: 40px;
   padding-right: 40px;
@@ -151,13 +160,84 @@
 }
 
 .error, .exito {
-  background-color: #e45a5a;
-  color: white;
+  background-color: #f3d5d5;
+  color: #2a2a2a;
   border-style: none;
-  font-weight: bold;
+  font-family: 'Strait', sans-serif;
 }
 
 .exito {
-  background-color: #1ea55b;
+  background-color: #dcf8e9;
+}
+
+.search__container {
+  padding-top: 64px;
+}
+
+.search__title {
+  font-size: 22px;
+  font-weight: 900;
+  text-align: center;
+  color: #496d7d;
+}
+
+.search__input {
+  width: 100%;
+  padding: 12px 24px;
+  background-color: transparent;
+  -webkit-transition: -webkit-transform 250ms ease-in-out;
+  transition: -webkit-transform 250ms ease-in-out;
+  transition: transform 250ms ease-in-out;
+  transition: transform 250ms ease-in-out, -webkit-transform 250ms ease-in-out;
+  font-size: 14px;
+  line-height: 18px;
+  color: #575756;
+  background-color: transparent;
+  /*         background-image: url(http://mihaeltomic.com/codepen/input-search/ic_search_black_24px.svg); */
+  background-image: url("data:image/svg+xml;charset=utf8,%3Csvg xmlns='http://www.w3.org/2000/svg' width='24' height='24' viewBox='0 0 24 24'%3E%3Cpath d='M15.5 14h-.79l-.28-.27C15.41 12.59 16 11.11 16 9.5 16 5.91 13.09 3 9.5 3S3 5.91 3 9.5 5.91 16 9.5 16c1.61 0 3.09-.59 4.23-1.57l.27.28v.79l5 4.99L20.49 19l-4.99-5zm-6 0C7.01 14 5 11.99 5 9.5S7.01 5 9.5 5 14 7.01 14 9.5 11.99 14 9.5 14z'/%3E%3Cpath d='M0 0h24v24H0z' fill='none'/%3E%3C/svg%3E");
+  background-repeat: no-repeat;
+  background-size: 18px 18px;
+  background-position: 95% center;
+  border-radius: 50px;
+  border: 1px solid #575756;
+  -webkit-transition: all 250ms ease-in-out;
+  transition: all 250ms ease-in-out;
+  -webkit-backface-visibility: hidden;
+          backface-visibility: hidden;
+  -webkit-transform-style: preserve-3d;
+          transform-style: preserve-3d;
+}
+
+.search__input::-webkit-input-placeholder {
+  color: color(#575756 a(0.8));
+  text-transform: uppercase;
+  letter-spacing: 1.5px;
+}
+
+.search__input:-ms-input-placeholder {
+  color: color(#575756 a(0.8));
+  text-transform: uppercase;
+  letter-spacing: 1.5px;
+}
+
+.search__input::-ms-input-placeholder {
+  color: color(#575756 a(0.8));
+  text-transform: uppercase;
+  letter-spacing: 1.5px;
+}
+
+.search__input::placeholder {
+  color: color(#575756 a(0.8));
+  text-transform: uppercase;
+  letter-spacing: 1.5px;
+}
+
+.search__input:hover, .search__input:focus {
+  padding: 12px 0;
+  outline: 0;
+  border: 1px solid transparent;
+  border-bottom: 1px solid #575756;
+  border-radius: 0;
+  background-position: 100% center;
 }
 /*# sourceMappingURL=styles.css.map */

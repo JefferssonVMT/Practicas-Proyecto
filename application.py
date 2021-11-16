@@ -65,7 +65,7 @@ def register():
 
         else:
             password = generate_password_hash(request.form.get("password"))
-            db.execute(f"INSERT INTO usuarios (nombre_usuario, correo, hash, numero_telefono) VALUES ('{request.form.get('nombre_usuario')}', '{request.form.get('correo')}', '{password}', '{request.form.get('numero_telefono')}')")
+            db.execute(f"INSERT INTO usuarios (nombre, apellido, nombre_usuario, hash) VALUES ('{request.form.get('nombre')}','{request.form.get('apellido')}', '{request.form.get('nombre_usuario')}', '{password}')")
             db.commit()
 
             id = db.execute(f"SELECT id FROM usuarios WHERE nombre_usuario= '{request.form.get('nombre_usuario')}'").fetchone()["id"]
@@ -73,7 +73,7 @@ def register():
             # Remember which user has logged in
             session["user_id"] = id
 
-            flash("Registrado!", "exito")
+            flash("Registrado!", "exito") 
             return redirect("/")
 
 
@@ -134,3 +134,8 @@ def logout():
 
     return redirect("/")
 
+@app.route("/micuenta", methods=["GET", "POST"])
+def micuenta():
+    if request.method == "GET":
+        usuario = db.execute(f"SELECT * FROM usuarios WHERE id = '{session['user_id']}'")
+        return render_template("micuenta.html", usuario = usuario)
