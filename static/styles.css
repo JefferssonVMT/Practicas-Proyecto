@@ -6,7 +6,7 @@
 @import url("https://fonts.googleapis.com/css2?family=Wire+One&display=swap");
 @import url("https://fonts.googleapis.com/css?family=Raleway:400,700,900");
 /* Base styling */
-.icon {
+.icon, .publicacion {
   display: block;
   margin-left: auto;
   margin-right: auto;
@@ -14,12 +14,12 @@
 
 /* Navbar */
 .navbar {
-  background: #1c3755;
+  background: #0d1418;
 }
 
 body, html {
   background: -webkit-gradient(linear, left top, left bottom, from(#daeff6), color-stop(#d2edf3), to(#d8e5fa));
-  background: linear-gradient(#daeff6, #d2edf3, #8fd5f5);
+  background: linear-gradient(#daeff6, #d2edf3, #d8e5fa);
   background-attachment: fixed;
 }
 
@@ -31,6 +31,8 @@ body, html {
 
 /* Pagina de login*/
 .login-box {
+  display: -webkit-box;
+  display: -ms-flexbox;
   display: flex;
   text-align: center;
   -webkit-box-pack: center;
@@ -38,7 +40,7 @@ body, html {
           justify-content: center;
   -ms-flex-line-pack: center;
       align-content: center;
-  color: #1c3755;
+  color: #0d2c3a;
   font-weight: bold;
   font-size: 23px;
   margin-bottom: 0%;
@@ -47,13 +49,13 @@ body, html {
 
 .login-box a {
   text-shadow: 0px 0px 3px rgba(117, 117, 117, 0.12);
-  color: #1c3755;
+  color: #0d2c3a;
   text-decoration: none;
   font-family: 'Prata', serif;
 }
 
 .login-box h3 {
-  color: #1c3755; 
+  color: #0d2c3a;
   text-align: center;
   font-family: "Poller One", cursive;
 }
@@ -74,6 +76,12 @@ body, html {
 #register {
   width: 500px;
   height: 670px;
+  margin: 7em auto;
+}
+
+#publicacion {
+  width: 700px;
+  height: 800px;
   margin: 7em auto;
 }
 
@@ -126,14 +134,14 @@ body, html {
 }
 
 .username:hover, .password:hover {
-  border: 2px solid #496d7d !important;
+  border: 2px solid #117dbb !important;
 }
 
 .submit {
   cursor: pointer;
   border-radius: 0.5rem;
   color: #fff;
-  background: #1c3755;
+  background: linear-gradient(190deg, #139fbb 0%, #042041 100%);
   border: 0;
   padding-left: 40px;
   padding-right: 40px;
@@ -159,6 +167,12 @@ body, html {
   padding-top: 5%;
 }
 
+.publicacion {
+  width: 15rem;
+  height: 20rem;
+  padding-bottom: 5%;
+}
+
 .error, .exito {
   background-color: #f3d5d5;
   color: #2a2a2a;
@@ -170,6 +184,10 @@ body, html {
   background-color: #dcf8e9;
 }
 
+a.submit {
+  color: #fff;
+}
+
 .search__container {
   padding-top: 64px;
 }
@@ -178,7 +196,7 @@ body, html {
   font-size: 22px;
   font-weight: 900;
   text-align: center;
-  color: #496d7d;
+  color: #1672bd;
 }
 
 .search__input {

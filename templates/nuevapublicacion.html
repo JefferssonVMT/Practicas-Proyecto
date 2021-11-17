@@ -1,0 +1,46 @@
+{% extends "layout.html" %}
+
+{% block title %}
+
+{% endblock %}
+
+{% block main %}
+
+<div class="nuevpublicacion-box">
+    <div class="caja" id="publicacion" align="center">
+        <form action="/nuevapublicacion" method="post">
+
+            <div class="row pt-2 ml-1 mr-1">
+                <div class="col-sm-12">
+                    <h3>Descripcion:</h3>
+                    <textarea placeholder="Ingresa una descripcion" class="form-control" name="nota" id="nota" cols="30"
+                        rows="7"></textarea>
+                </div>
+                <div class="col-sm-12">
+                    <label for="inputCategoria">Categoria</label>
+                  <input type="text" class="form-control" id="inputCategoria" placeholder="Categoria">
+                </div>
+            </div>
+       
+            <div class="row mt-1 ml-1 mr-1">
+                <div class="col-6">
+                    <label for="exampleFormControlFile1">Imagen 1</label>
+                    <img class="publicacion" src="static/imagenes/agregar.png" />
+                    <input type="file" class="form-control-file" id="exampleFormControlFile1">
+                </div>
+                <div class="col-6">
+                    <label for="exampleFormControlFile1">Imagen 2</label>
+                    <img class="publicacion" src="static/imagenes/agregar.png" />
+                    <input type="file" class="form-control-file" id="exampleFormControlFile1">
+                </div>
+            </div>
+
+            <br> 
+            <div class="form-group" align="center">
+                <button class="btn btn-primary my-2 submit" type="submit">Subir</button>
+            </div>
+
+        </form>
+    </div>
+</div>
+{% endblock %}

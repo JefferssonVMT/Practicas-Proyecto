@@ -93,6 +93,8 @@ def login():
 
         session["user_id"] = query['id']
 
+        print(session["user_id"])
+
         return redirect("/")
 
     else:
@@ -135,7 +137,23 @@ def logout():
     return redirect("/")
 
 @app.route("/micuenta", methods=["GET", "POST"])
+@login_required
 def micuenta():
     if request.method == "GET":
-        usuario = db.execute(f"SELECT * FROM usuarios WHERE id = '{session['user_id']}'")
+        usuario = db.execute(f"SELECT * FROM usuarios WHERE id = {session['user_id']}")
         return render_template("micuenta.html", usuario = usuario)
+
+    elif request.method == "POST":
+
+        db.execute(f"UPDATE usuarios SET correo = '{request.form.get('correo')}', numero_telefono = '{request.form.get('phone')}' WHERE id = {session['user_id']}")
+        
+        flash("Cambios realizados", "exito")
+
+        return redirect("/micuenta")
+
+@app.route("/nuevapublicacion", methods=["GET", "POST"])
+@login_required
+def nuevapublicacion():
+    if request.method == "GET":
+        return render_template("nuevapublicacion.html")
+

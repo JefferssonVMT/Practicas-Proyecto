@@ -8,7 +8,7 @@
 
 <div class="content">
   
-    <div class="container mt-3">
+    <div class="container mt-5">
       <div class="row justify-content-center">
     
         <div class="col-12 col-md-6">
@@ -42,15 +42,15 @@
               <div class="mb-3 row">
                 <label for="phone" class="col-sm-4 col-form-label">Teléfono:</label>
                 <div class="col-sm-8">
-                  <input type="tel" form="update-my-profile" class="form-control" id="phone" name="phone" placeholder="+505 82200101" required
-                    value="+505 83621351">
+                  <input type="tel" form="update-my-profile" class="form-control" id="phone" name="phone" placeholder="{{datos["numero_telefono"]}}" required
+                    value="{{datos["numero_telefono"]}}">
                 </div>
               </div>
               <div class="mb-3 row">
-                <label for="phone" class="col-sm-4 col-form-label">Github:</label>
+                <label for="correp" class="col-sm-4 col-form-label">Correo:</label>
                 <div class="col-sm-8">
-                  <input type="text" form="update-my-profile" class="form-control" id="github" name="github" placeholder="user12" required
-                    value="estefanyrizo">
+                  <input type="text" form="update-my-profile" class="form-control" id="correo" name="correo" placeholder="{{datos["correo"]}}" required
+                    value="{{datos["correo"]}}">
                 </div>
               </div>
               
@@ -58,11 +58,11 @@
 
             {%endfor%}
             <div class="card-footer d-flex p-1 m-1">
-              <form action="/accounts/" id="update-my-profile" method="post">
+              <form action="/micuenta" id="update-my-profile" method="post">
               <input type="hidden" name="csrfmiddlewaretoken" value="RV5mrgHzkbPJwc5tZ5VRsWVfNpv8UxabHPILxeOnMbanZBeZ8uaU4sRE3r5zdvMM">
                 <input type="submit" value="Editar información" class="submit">
               </form>
-              <a href="/actualizarcontraseña" class="btn btn-warning">Cambiar contraseña</a>
+              <a href="/actualizarcontraseña" class="submit ml-5">Cambiar contraseña</a>
             </div>
           </div>
         </div>
