@@ -146,7 +146,7 @@ def micuenta():
     elif request.method == "POST":
 
         db.execute(f"UPDATE usuarios SET correo = '{request.form.get('correo')}', numero_telefono = '{request.form.get('phone')}' WHERE id = {session['user_id']}")
-        
+        db.commit()
         flash("Cambios realizados", "exito")
 
         return redirect("/micuenta")
