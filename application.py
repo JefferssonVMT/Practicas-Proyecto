@@ -55,8 +55,15 @@ def register():
 
     elif request.method == "POST":
 
+        correo = request.form.get("correo")
+        numero_telefono = request.form.get("telefono")
+
         if not request.form.get("password") == request.form.get("confirmation"):
             flash("Las contraseñas no coinciden", "error")
+            return render_template("register.html")
+
+        if not request.form.get("nombre_usuario") or not request.form.get("nombre") or not request.form.get("apellido"):
+            flash("Datos invalidos o vacios", "error")
             return render_template("register.html")
 
         if db.execute(f"SELECT * FROM usuarios WHERE nombre_usuario = '{request.form.get('nombre_usuario')}'").rowcount > 0:
@@ -65,8 +72,22 @@ def register():
 
         else:
             password = generate_password_hash(request.form.get("password"))
-            db.execute(f"INSERT INTO usuarios (nombre, apellido, nombre_usuario, hash) VALUES ('{request.form.get('nombre')}','{request.form.get('apellido')}', '{request.form.get('nombre_usuario')}', '{password}')")
-            db.commit()
+
+            if not correo and numero_telefono:
+                db.execute(f"INSERT INTO usuarios (nombre, apellido, nombre_usuario, hash, numero_telefono) VALUES ('{request.form.get('nombre')}','{request.form.get('apellido')}', '{request.form.get('nombre_usuario')}', '{password}', '{numero_telefono}')")
+                db.commit()
+
+            elif not numero_telefono and correo:
+                db.execute(f"INSERT INTO usuarios (nombre, apellido, nombre_usuario, hash, correo) VALUES ('{request.form.get('nombre')}','{request.form.get('apellido')}', '{request.form.get('nombre_usuario')}', '{password}', '{correo}')")
+                db.commit()
+
+            elif not numero_telefono and not correo:
+                db.execute(f"INSERT INTO usuarios (nombre, apellido, nombre_usuario, hash) VALUES ('{request.form.get('nombre')}','{request.form.get('apellido')}', '{request.form.get('nombre_usuario')}', '{password}')")
+                db.commit()
+
+            else:
+                db.execute(f"INSERT INTO usuarios (nombre, apellido, nombre_usuario, hash, correo, numero_telefono) VALUES ('{request.form.get('nombre')}','{request.form.get('apellido')}', '{request.form.get('nombre_usuario')}', '{password}', '{correo}'', '{numero_telefono}')")
+                db.commit()
 
             id = db.execute(f"SELECT id FROM usuarios WHERE nombre_usuario= '{request.form.get('nombre_usuario')}'").fetchone()["id"]
 

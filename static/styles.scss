@@ -89,8 +89,12 @@ body, html {
 
 #register {
     width: 500px;
-    height: 670px;
-    margin: 7em auto;
+    margin: 4%;
+
+    @include small(){
+        margin-top:8%;
+        margin-bottom: 8%;
+    }
 }
 
 #publicacion{
@@ -207,4 +211,6 @@ a.submit{
     color: #fff;
 }
 
+textarea{
+    resize: none;
 }

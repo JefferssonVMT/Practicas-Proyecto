@@ -39,24 +39,42 @@
                 </div>
               </div>
               
+              {% if datos["numero_telefono"]%}
               <div class="mb-3 row">
                 <label for="phone" class="col-sm-4 col-form-label">Teléfono:</label>
                 <div class="col-sm-8">
-                  <input type="tel" form="update-my-profile" class="form-control" id="phone" name="phone" placeholder="{{datos["numero_telefono"]}}" required
+                  <input type="tel" form="update-my-profile" class="form-control" id="phone" name="phone" placeholder="{{datos["numero_telefono"]}}"
                     value="{{datos["numero_telefono"]}}">
                 </div>
               </div>
+              {% else %}
+              <div class="mb-3 row">
+                <label for="phone" class="col-sm-4 col-form-label">Teléfono:</label>
+                <div class="col-sm-8">
+                  <input type="tel" form="update-my-profile" class="form-control" id="phone" name="phone" placeholder="Numero telefonico"
+                    value="">
+                </div>
+              </div>
+              {% endif %}
+              
+              {% if datos["correo"]%}
               <div class="mb-3 row">
                 <label for="correp" class="col-sm-4 col-form-label">Correo:</label>
                 <div class="col-sm-8">
-                  <input type="text" form="update-my-profile" class="form-control" id="correo" name="correo" placeholder="{{datos["correo"]}}" required
-                    value="{{datos["correo"]}}">
+                  <input type="text" form="update-my-profile" class="form-control" id="correo" name="correo" value="{{datos["correo"]}}">
                 </div>
               </div>
-              
+              {% else %}
+              <div class="mb-3 row">
+                <label for="correp" class="col-sm-4 col-form-label">Correo:</label>
+                <div class="col-sm-8">
+                  <input type="text" form="update-my-profile" class="form-control" id="correo" name="correo" placeholder="Correo electronico">
+                </div>
+              </div>
+              {% endif %}
             </div>
-
             {%endfor%}
+
             <div class="card-footer d-flex p-1 m-1">
               <form action="/micuenta" id="update-my-profile" method="post">
               <input type="hidden" name="csrfmiddlewaretoken" value="RV5mrgHzkbPJwc5tZ5VRsWVfNpv8UxabHPILxeOnMbanZBeZ8uaU4sRE3r5zdvMM">
