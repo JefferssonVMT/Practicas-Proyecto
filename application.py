@@ -60,15 +60,19 @@ def register():
 
         if not request.form.get("password") == request.form.get("confirmation"):
             flash("Las contraseñas no coinciden", "error")
-            return render_template("register.html")
+            return render_template("register.html", error = "confirmation")
 
         if not request.form.get("nombre_usuario") or not request.form.get("nombre") or not request.form.get("apellido"):
             flash("Datos invalidos o vacios", "error")
-            return render_template("register.html")
+            return render_template("register.html", error = "nombre")
+
+        if request.form.get("telefono") and not request.form.get("telefono").isdigit():
+            flash("Telefono invalido o formato incorrecto", "error")
+            return render_template("register.html", error = "telefono")
 
         if db.execute(f"SELECT * FROM usuarios WHERE nombre_usuario = '{request.form.get('nombre_usuario')}'").rowcount > 0:
-            flash("El usuario ya existe :(", "error")
-            return render_template("register.html")
+            flash("El usuario ya existe", "error")
+            return render_template("register.html", error = "username")
 
         else:
             password = generate_password_hash(request.form.get("password"))
@@ -106,7 +110,15 @@ def login():
 
     if request.method == "POST":
         
-        query = db.execute(f"select * from usuarios WHERE nombre_usuario = '{request.form.get('nombre_usuario')}'").fetchone()
+        if not request.form.get('nombre_usuario'):
+            flash("Debe ingresar el correo nombre de usuario", "error")
+            return render_template("login.html", error = "username")
+        
+        elif not request.form.get('password'):
+            flash("Debe ingresar la contraseña", "error")
+            return render_template("login.html", error = "password")
+
+        query = db.execute(f"select * from usuarios WHERE nombre_usuario = '{request.form.get('nombre_usuario')}' or correo = '{request.form.get('nombre_usuario')}'").fetchone()
 
         if not query or not check_password_hash(query['hash'], request.form.get("password")):
             flash("Nombre o contraseña incorrectos", "error")
@@ -135,7 +147,11 @@ def cambiarcontraseña():
         # Validar que password y confirmation tengan los mismos valores
         if newpassword != confirmation:
             flash("Las contraseñas no coindicen", "error")
-            return render_template("actualizarcontraseña.html")
+            return render_template("actualizarcontraseña.html", error = "confirmation")
+        
+        elif not newpassword and not confirmation:
+            flash("Debe ingresar los datos", "error")
+            return render_template("actualizarcontraseña.html", error = "password")
 
         # Ingresar los datos a la base de datos
         else:
@@ -160,14 +176,34 @@ def logout():
 @app.route("/micuenta", methods=["GET", "POST"])
 @login_required
 def micuenta():
+    
+    usuario = db.execute(f"SELECT * FROM usuarios WHERE id = {session['user_id']}")
+
     if request.method == "GET":
-        usuario = db.execute(f"SELECT * FROM usuarios WHERE id = {session['user_id']}")
         return render_template("micuenta.html", usuario = usuario)
 
     elif request.method == "POST":
 
-        db.execute(f"UPDATE usuarios SET correo = '{request.form.get('correo')}', numero_telefono = '{request.form.get('phone')}' WHERE id = {session['user_id']}")
-        db.commit()
+        if request.form.get('phone') and not request.form.get('phone').isdigit():
+            flash("Telefono invalido o con formmato incorrecto", "error")
+            return render_template("micuenta.html", usuario = usuario, error = "phone")
+
+        if not request.form.get('phone') and request.form.get('mail'):
+            db.execute(f"UPDATE usuarios SET correo = '{request.form.get('mail')}' WHERE id = {session['user_id']}")
+            db.commit()
+
+        elif not request.form.get('mail') and request.form.get('phone'):
+            db.execute(f"UPDATE usuarios SET numero_telefono = '{request.form.get('phone')}' WHERE id = {session['user_id']}")
+            db.commit()
+
+        elif request.form.get('phone') and request.form.get('mail'):
+            db.execute(f"UPDATE usuarios SET correo = '{request.form.get('mail')}', '{request.form.get('phone')}' WHERE id = {session['user_id']}")
+            db.commit()
+
+        else:
+            flash("Nada que editar", "error")
+            return render_template("micuenta.html", usuario = usuario)
+
         flash("Cambios realizados", "exito")
 
         return redirect("/micuenta")

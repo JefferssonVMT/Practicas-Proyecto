@@ -6,7 +6,7 @@
 
 {% block main %}
 
-<div class="nuevpublicacion-box">
+<div id="nuevpublicacion-box">
     <div class="caja" id="publicacion" align="center">
         <form action="/nuevapublicacion" method="post">
 
@@ -24,12 +24,10 @@
             <div class="row mt-1 ml-1 mr-1">
                 <div class="col-6">
                     <label for="exampleFormControlFile1">Imagen 1</label>
-                    <img class="publicacion" src="static/imagenes/agregar.png" />
                     <input type="file" class="form-control-file" id="exampleFormControlFile1">
                 </div>
                 <div class="col-6">
                     <label for="exampleFormControlFile1">Imagen 2</label>
-                    <img class="publicacion" src="static/imagenes/agregar.png" />
                     <input type="file" class="form-control-file" id="exampleFormControlFile1">
                 </div>
             </div>

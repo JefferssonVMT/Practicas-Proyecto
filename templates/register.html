@@ -18,26 +18,39 @@ Registro
             <div class="form-group">
 
                 
-                <input autocomplete="off" align="center" autofocus class="form-control username text-center mb-4"
-                    name="nombre_usuario" placeholder="Nombre de usuario" type="text" required/>
+                <input autocomplete="off" align="center" class="form-control username text-center mb-4"
+                    name="nombre_usuario" placeholder="Nombre de usuario" type="text"/>
 
-                <input autocomplete="off" align="center" autofocus class="form-control username text-center mb-4"
-                name="nombre" placeholder="Nombre" type="text" required/>
+                <input autocomplete="off" align="center" class="form-control nombre text-center mb-4"
+                name="nombre" placeholder="Nombre" type="text"/>
 
-                <input autocomplete="off" align="center" autofocus class="form-control username text-center mb-4"
-                name="apellido" placeholder="Apellido" type="text" required/>
+                <input autocomplete="off" align="center" class="form-control nombre text-center mb-4"
+                name="apellido" placeholder="Apellido" type="text"/>
 
-                <input autocomplete="off" align="center" autofocus class="form-control username text-center mb-4"
-                name="correo" placeholder="Correo electronico" type="email"/>
+                <input autocomplete="off" align="center" class="form-control text-center mb-4"
+                name="correo" id="correo" placeholder="Correo electronico" type="email"/>
 
                 <input class="form-control password text-center mb-4" align="center" name="password"
-                    placeholder="Contraseña" type="password" required/>
+                    placeholder="Contraseña" type="password"/>
 
-                <input class="form-control password text-center mb-4" align="center" name="confirmation"
-                    placeholder="Repetir contraseña" type="password" required/>
+                <input class="form-control password text-center mb-4" align="center" id="confirmation" name="confirmation"
+                    placeholder="Repetir contraseña" type="password"/>
 
-                <input autocomplete="off" align="center" autofocus class="form-control username text-center mb-4"
-                name="telefono" placeholder="Telefono" type="tel" minlength="8"/>
+                <input autocomplete="off" align="center" class="form-control text-center mb-4"
+                name="telefono" id="telefono" placeholder="Telefono" type="tel" minlength="8"/>
+                {% if error %}
+                    <style>
+                        {% if error == "username" or error == "nombre" %}
+                            .{{error}}{
+                                border-color: red;
+                            }
+                        {% else %}
+                            #{{error}}{
+                                border-color: red;
+                            }
+                        {% endif %}
+                    </style>
+                {% endif %}
 
             </div>
             <div class="form-group" align="center">

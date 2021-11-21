@@ -18,10 +18,24 @@ Actualizar contraseña
             <div class="form-group">
 
                 <input class="form-control password text-center mb-4" align="center" name="password"
-                    placeholder="Contraseña" type="password" required/>
+                    placeholder="Contraseña" type="password"/>
 
-                <input class="form-control password text-center mb-4" align="center" name="confirmation"
-                    placeholder="Repetir contraseña" type="password" required />
+                <input class="form-control password text-center mb-4" id="confirmation" align="center" name="confirmation"
+                    placeholder="Repetir contraseña" type="password"/>
+
+                {% if error %}
+                <style>
+                    {% if error == "password"%}
+                        .{{error}}{
+                            border-color: red;
+                        }
+                    {% else %}
+                        #{{error}}{
+                            border-color: red;
+                        }
+                    {% endif %}
+                </style>
+                {% endif %}
 
             </div>
             <div class="form-group" align="center">

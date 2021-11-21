@@ -16,13 +16,20 @@ Login
             <h3 class="sign pt-2 pb-4" align="center">Iniciar sesión</h3>
 
             <div class="form-group">
-                <input autocomplete="off" align="center" autofocus class="form-control username text-center mb-4"
-                    name="nombre_usuario" placeholder="Usuario" type="text" required />
+                <input autocomplete="off" align="center" class="form-control username text-center mb-4"
+                    name="nombre_usuario" placeholder="Correo o nombre de usuario" type="text" />
                 <input class="form-control password text-center mb-2" align="center" name="password"
-                    placeholder="Contraseña" type="password" required/>
+                    placeholder="Contraseña" type="password" />
                 <div class="form-group" align="center">
                     <button class="submit" type="submit">Iniciar sesión</button>
                 </div>
+                {% if error %}
+                    <style>
+                        .{{error}}{
+                          border-color: red;
+                        }
+                    </style>
+                {% endif %}
         </form>
         <div id="formFooter">
             <a href="register">¿No tienes una cuenta?</a>

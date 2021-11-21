@@ -14,7 +14,7 @@
         <div class="col-12 col-md-6">
           <div class="card">
             <div class="card-body">
-              <h5 class="card-title text-center">Tus Datos de usuario :D</h5>
+              <h5 class="card-title text-center mb-4">Tus Datos de usuario</h5>
               <div class="mb-3 row">
                   {%for datos in usuario%}
                 <label for="username" class="col-sm-4 col-form-label">Username:</label>
@@ -43,17 +43,22 @@
               <div class="mb-3 row">
                 <label for="phone" class="col-sm-4 col-form-label">Teléfono:</label>
                 <div class="col-sm-8">
-                  <input type="tel" form="update-my-profile" class="form-control" id="phone" name="phone" placeholder="{{datos["numero_telefono"]}}"
-                    value="{{datos["numero_telefono"]}}">
+                  <input type="tel" form="update-my-profile" class="form-control" id="phone" name="phone" value="{{datos["numero_telefono"]}}" disabled>
                 </div>
               </div>
               {% else %}
               <div class="mb-3 row">
                 <label for="phone" class="col-sm-4 col-form-label">Teléfono:</label>
                 <div class="col-sm-8">
-                  <input type="tel" form="update-my-profile" class="form-control" id="phone" name="phone" placeholder="Numero telefonico"
-                    value="">
+                  <input type="tel" form="update-my-profile" class="form-control" id="phone" name="phone" placeholder="Numero telefonico" minlength="8">
                 </div>
+                {% if error %}
+                    <style>
+                        #{{error}}{
+                          border-color: red;
+                        }
+                    </style>
+                {% endif %}
               </div>
               {% endif %}
               
@@ -61,26 +66,27 @@
               <div class="mb-3 row">
                 <label for="correp" class="col-sm-4 col-form-label">Correo:</label>
                 <div class="col-sm-8">
-                  <input type="text" form="update-my-profile" class="form-control" id="correo" name="correo" value="{{datos["correo"]}}">
+                  <input type="email" form="update-my-profile" class="form-control" id="mail" name="correo" value="{{datos["correo"]}}" disabled>
                 </div>
               </div>
               {% else %}
               <div class="mb-3 row">
                 <label for="correp" class="col-sm-4 col-form-label">Correo:</label>
                 <div class="col-sm-8">
-                  <input type="text" form="update-my-profile" class="form-control" id="correo" name="correo" placeholder="Correo electronico">
+                  <input type="email" form="update-my-profile" class="form-control" name="correo" placeholder="Correo electronico">
                 </div>
               </div>
               {% endif %}
             </div>
             {%endfor%}
 
-            <div class="card-footer d-flex p-1 m-1">
+            <div class="card-footer d-flex justify-content-center p-1 m-1">
+              <a href="/actualizarcontraseña" id="cambiar_contraseña" class="p-0">
+                <input type="submit" class="submit" id="cam_pass" value="Cambiar contraseña">
+              </a>
               <form action="/micuenta" id="update-my-profile" method="post">
-              <input type="hidden" name="csrfmiddlewaretoken" value="RV5mrgHzkbPJwc5tZ5VRsWVfNpv8UxabHPILxeOnMbanZBeZ8uaU4sRE3r5zdvMM">
-                <input type="submit" value="Editar información" class="submit">
+              <input type="submit" value="Guardar" class="submit" style="height: 100%;">
               </form>
-              <a href="/actualizarcontraseña" class="submit ml-5">Cambiar contraseña</a>
             </div>
           </div>
         </div>

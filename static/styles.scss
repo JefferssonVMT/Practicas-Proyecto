@@ -97,10 +97,10 @@ body, html {
     }
 }
 
-#publicacion{
-    width: 700px;
-    height: 800px;
-    margin: 7em auto;
+#nuevpublicacion-box{
+    display: flex;
+    justify-content: center;
+    margin-top: 20vh;
 }
 
 #actualizarcontraseña{
@@ -109,7 +109,16 @@ body, html {
     margin: 7em auto;
 }
 
-.username
+#cambiar_contraseña{
+    margin-right: 10%;
+    padding: 10%;
+}
+
+cam_pass{
+    padding: 6%;
+}
+
+.username, .nombre, #apellido, #correo, #telefono
 {
     width: 76%;
     color: rgb(109, 108, 108);
@@ -127,7 +136,7 @@ body, html {
     margin-bottom: 50px;
     text-align: center;
     margin-bottom: 27px;
-    border: 2px solid rgba(0, 0, 0, 0.18) !important;
+    border: 2px solid rgba(0, 0, 0, 0.18);
 }
 
 .password {
@@ -147,12 +156,12 @@ body, html {
     margin-bottom: 50px;
     text-align: center;
     margin-bottom: 27px;
-    border: 2px solid rgba(0, 0, 0, 0.18) !important;
+    border: 2px solid rgba(0, 0, 0, 0.18);
 }
 
 .username:hover, .password:hover
 {
-    border: 2px solid rgb(17, 125, 187) !important;
+    border: 2px solid rgb(17, 125, 187);
 }
 
 .submit {
@@ -161,8 +170,8 @@ body, html {
     color: #fff;
     background: linear-gradient(190deg, rgba(19,159,187,1) 0%, rgb(4, 32, 65) 100%);
     border: 0;
-    padding-left: 40px;
-    padding-right: 40px;
+    padding-left: 20px;
+    padding-right: 20px;
     padding-bottom: 10px;
     padding-top: 10px;
     font-weight: bold;
@@ -183,13 +192,6 @@ body, html {
     width: 7rem;
     height: 9rem;
     padding-top: 5%;
-    @extend %centrar;
-}
-
-.publicacion{
-    width: 15rem;
-    height: 20rem;
-    padding-bottom: 5%;
     @extend %centrar;
 }
 
