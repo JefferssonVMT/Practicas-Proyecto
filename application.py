@@ -219,18 +219,29 @@ def nuevapublicacion():
         imagen1 = request.files['imagen1']
         imagen2 = request.files['imagen2']
 
-        if not imagen1 and not imagen2:
+        rutaImagen1 = None
+        rutaImagen2 = None
+
+        if not request.form.get("titulo") or not request.form.get("nota") or not request.form.get("categoria"):
+            flash("Debe introducir todos campos de texto solicitados", "error")
+            return render_template("nuevapublicacion.html")
+
+        elif not imagen1 and not imagen2:
             flash("Se requiere subir almenos una imagen", "error")
             return render_template("nuevapublicacion.html")
 
         elif imagen1 and not imagen2:
             imagen1.save(os.path.join(basepath, f'posts\\users_id\\{iddd}\\imagenes', secure_filename(imagen1.filename)))
+            rutaImagen1 = f'posts\\users_id\\{iddd}\\imagenes\\' + imagen1.filename
 
         elif imagen2 and not imagen1:
             imagen2.save(os.path.join(basepath, f'posts\\users_id\\{iddd}\\imagenes', secure_filename(imagen2.filename)))
+            rutaImagen2 = f'posts\\users_id\\{iddd}\\imagenes\\' + imagen2.filename
 
         elif imagen1 and imagen2:
             imagen1.save(os.path.join(basepath, f'posts\\users_id\\{iddd}\\imagenes', secure_filename(imagen1.filename)))
             imagen2.save(os.path.join(basepath, f'posts\\users_id\\{iddd}\\imagenes', secure_filename(imagen2.filename)))
+            rutaImagen1 = f'posts\\users_id\\{iddd}\\imagenes\\' + imagen1.filename
+            rutaImagen2 = f'posts\\users_id\\{iddd}\\imagenes\\' + imagen2.filename
 
         return redirect("/")
