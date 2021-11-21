@@ -210,7 +210,15 @@ def micuenta():
 @login_required
 def nuevapublicacion():
     if request.method == "GET":
-        return render_template("nuevapublicacion.html")
+        
+        row = db.execute("SELECT nombre FROM categorias")
+
+        categorias = []
+
+        for cat in row:
+            categorias.append(cat[0])
+
+        return render_template("nuevapublicacion.html", categorias = categorias)
 
     else:
         iddd = session["user_id"]
@@ -219,10 +227,14 @@ def nuevapublicacion():
         imagen1 = request.files['imagen1']
         imagen2 = request.files['imagen2']
 
+        titulo = request.form.get("titulo")
+        descripcion = request.form.get("nota")
+        categoria = request.form.get("categoria")
+
         rutaImagen1 = None
         rutaImagen2 = None
 
-        if not request.form.get("titulo") or not request.form.get("nota") or not request.form.get("categoria"):
+        if not titulo or not descripcion or not categoria:
             flash("Debe introducir todos campos de texto solicitados", "error")
             return render_template("nuevapublicacion.html")
 
@@ -230,18 +242,33 @@ def nuevapublicacion():
             flash("Se requiere subir almenos una imagen", "error")
             return render_template("nuevapublicacion.html")
 
-        elif imagen1 and not imagen2:
+        elif imagen1 and not imagen2 and titulo and descripcion and categoria:
             imagen1.save(os.path.join(basepath, f'posts\\users_id\\{iddd}\\imagenes', secure_filename(imagen1.filename)))
             rutaImagen1 = f'posts\\users_id\\{iddd}\\imagenes\\' + imagen1.filename
 
-        elif imagen2 and not imagen1:
+            cat = db.execute(f"SELECT id from categorias WHERE nombre = '{categoria}'").fetchone()[0]
+
+            db.execute(f"INSERT INTO publicaciones (titulo, descripcion, id_categoria, imagen1, id_user) values ('{titulo}', '{descripcion}', '{cat}', '{rutaImagen1}', '{session['user_id']}')")
+            db.commit()
+
+        elif imagen2 and not imagen1 and titulo and descripcion and categoria:
             imagen2.save(os.path.join(basepath, f'posts\\users_id\\{iddd}\\imagenes', secure_filename(imagen2.filename)))
             rutaImagen2 = f'posts\\users_id\\{iddd}\\imagenes\\' + imagen2.filename
 
-        elif imagen1 and imagen2:
+            cat = db.execute(f"SELECT id from categorias WHERE nombre = '{categoria}'").fetchone()[0]
+
+            db.execute(f"INSERT INTO publicaciones (titulo, descripcion, id_categoria, imagen1, id_user) values ('{titulo}', '{descripcion}', '{cat}', '{rutaImagen2}', '{session['user_id']}')")
+            db.commit()
+
+        elif imagen1 and imagen2 and titulo and descripcion and categoria:
             imagen1.save(os.path.join(basepath, f'posts\\users_id\\{iddd}\\imagenes', secure_filename(imagen1.filename)))
             imagen2.save(os.path.join(basepath, f'posts\\users_id\\{iddd}\\imagenes', secure_filename(imagen2.filename)))
             rutaImagen1 = f'posts\\users_id\\{iddd}\\imagenes\\' + imagen1.filename
             rutaImagen2 = f'posts\\users_id\\{iddd}\\imagenes\\' + imagen2.filename
+
+            cat = db.execute(f"SELECT id from categorias WHERE nombre = '{categoria}'").fetchone()[0]
+
+            db.execute(f"INSERT INTO publicaciones (titulo, descripcion, id_categoria, imagen1, imagen2, id_user) values ('{titulo}', '{descripcion}', '{cat}', '{rutaImagen1}', '{rutaImagen2}', '{session['user_id']}')")
+            db.commit()
 
         return redirect("/")
