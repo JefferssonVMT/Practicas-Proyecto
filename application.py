@@ -1,5 +1,4 @@
 import os
-
 import requests
 from dotenv import load_dotenv
 from flask import Flask, session
@@ -11,14 +10,13 @@ from sqlalchemy.sql.elements import Null
 from tempfile import mkdtemp
 from werkzeug.security import check_password_hash, generate_password_hash
 from helpers import login_required
-from flask import jsonify
+from werkzeug.utils import secure_filename
 
 app = Flask(__name__)
 
 # Check for environment variable
 if not os.getenv("DATABASE_URL"):
     raise RuntimeError("DATABASE_URL is not set")
-
 
 # Configure session to use filesystem
 app.config["SESSION_FILE_DIR"] = mkdtemp()
@@ -97,6 +95,8 @@ def register():
 
             # Remember which user has logged in
             session["user_id"] = id
+
+            os.makedirs(f'posts/users_id/{id}/imagenes', exist_ok=True)
 
             flash("Registrado!", "exito") 
             return redirect("/")
@@ -214,3 +214,25 @@ def nuevapublicacion():
     if request.method == "GET":
         return render_template("nuevapublicacion.html")
 
+    else:
+        iddd = session["user_id"]
+        basepath = os.path.dirname (__file__)
+
+        imagen1 = request.files['imagen1']
+        imagen2 = request.files['imagen2']
+
+        if not imagen1 and not imagen2:
+            flash("Se requiere subir almenos una imagen", "error")
+            return render_template("nuevapublicacion.html")
+
+        elif imagen1 and not imagen2:
+            imagen1.save(os.path.join(basepath, f'posts\\users_id\\{iddd}\\imagenes', secure_filename(imagen1.filename)))
+
+        elif imagen2 and not imagen1:
+            imagen2.save(os.path.join(basepath, f'posts\\users_id\\{iddd}\\imagenes', secure_filename(imagen2.filename)))
+
+        elif imagen1 and imagen2:
+            imagen1.save(os.path.join(basepath, f'posts\\users_id\\{iddd}\\imagenes', secure_filename(imagen1.filename)))
+            imagen2.save(os.path.join(basepath, f'posts\\users_id\\{iddd}\\imagenes', secure_filename(imagen2.filename)))
+
+        return redirect("/")

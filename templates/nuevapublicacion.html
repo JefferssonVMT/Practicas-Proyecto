@@ -8,27 +8,32 @@
 
 <div id="nuevpublicacion-box">
     <div class="caja" id="publicacion" align="center">
-        <form action="/nuevapublicacion" method="post">
+        <form action="/nuevapublicacion" enctype='multipart/form-data' method="post">
 
-            <div class="row pt-2 ml-1 mr-1">
+            <div class="row pt-2 ml-1 mr-1 mt-2">
                 <div class="col-sm-12">
-                    <h3>Descripcion:</h3>
+                    <h3>Titulo:</h3>
+                    <input type = "text" placeholder="Titulo" class="form-control" name="titulo" id="titulo"></input>
+                </div>
+
+                <div class="col-sm-12 mt-2">
+                    <h5>Descripcion:</h5>
                     <textarea type = "text" placeholder="Ingresa una descripcion" class="form-control" name="nota" id="nota"></textarea>
                 </div>
-                <div class="col-sm-12">
-                    <label for="inputCategoria">Categoria</label>
+                <div class="col-sm-12 mt-2">
+                    <h5>Categoria</h5>
                   <input type="text" class="form-control" id="inputCategoria" placeholder="Categoria">
                 </div>
             </div>
        
-            <div class="row mt-1 ml-1 mr-1">
+            <div class="row mt-3 ml-1 mr-1">
                 <div class="col-6">
                     <label for="exampleFormControlFile1">Imagen 1</label>
-                    <input type="file" class="form-control-file" id="exampleFormControlFile1">
+                    <input type="file" accept="image/*" class="form-control-file" name="imagen1">
                 </div>
                 <div class="col-6">
                     <label for="exampleFormControlFile1">Imagen 2</label>
-                    <input type="file" class="form-control-file" id="exampleFormControlFile1">
+                    <input type="file" accept="image/*" class="form-control-file" name="imagen2">
                 </div>
             </div>
 
