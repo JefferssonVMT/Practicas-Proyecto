@@ -1,12 +1,10 @@
 import os
-import requests
 from dotenv import load_dotenv
 from flask import Flask, session
 from flask_session import Session
 from sqlalchemy import create_engine
 from sqlalchemy.orm import scoped_session, sessionmaker
 from flask import Flask, flash, redirect, render_template, request, session
-from sqlalchemy.sql.elements import Null
 from tempfile import mkdtemp
 from werkzeug.security import check_password_hash, generate_password_hash
 from helpers import login_required
@@ -216,7 +214,7 @@ def nuevapublicacion():
 
     else:
         iddd = session["user_id"]
-        basepath = os.path.dirname (__file__)
+        basepath = os.path.dirname(__file__)
 
         imagen1 = request.files['imagen1']
         imagen2 = request.files['imagen2']
