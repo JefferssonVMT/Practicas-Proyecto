@@ -1,7 +1,7 @@
 {% extends "layout.html" %}
 
 {% block title %}
- - Nueva publicacion
+- Nueva publicacion
 {% endblock %}
 
 {% block main %}
@@ -12,20 +12,26 @@
 
             <div class="row pt-2 ml-1 mr-1 mt-2">
                 <div class="col-sm-12">
-                    <h3>Titulo:</h3>
-                    <input type = "text" placeholder="Titulo" class="form-control" name="titulo" id="titulo"></input>
+                    <input type="text" placeholder="Titulo" class="form-control" name="titulo" id="titulo"></input>
                 </div>
 
                 <div class="col-sm-12 mt-2">
-                    <h5>Descripcion:</h5>
-                    <textarea type = "text" placeholder="Ingresa una descripcion" class="form-control" name="nota" id="nota"></textarea>
+                    <textarea type="text" placeholder="Ingresa una descripcion" class="form-control" name="nota"
+                        id="nota"></textarea>
                 </div>
                 <div class="col-sm-12 mt-2">
-                    <h5>Categoria</h5>
-                  <input type="text" class="form-control" id="inputCategoria" placeholder="Categoria" name="categoria">
+
+                    <select class="form-control" name="categoria" />
+                    <option selected="" disabled>Categoria</option>
+
+                    {% for categoria in categorias %}
+                    <option value="{{ categoria }}">{{ categoria }}</option>
+                    {% endfor %}
+                    </select>
+
                 </div>
             </div>
-       
+
             <div class="row mt-3 ml-1 mr-1">
                 <div class="col-6">
                     <label for="exampleFormControlFile1">Imagen 1</label>
@@ -37,7 +43,7 @@
                 </div>
             </div>
 
-            <br> 
+            <br>
             <div class="form-group" align="center">
                 <button class="btn btn-primary my-2 submit" type="submit">Subir</button>
             </div>

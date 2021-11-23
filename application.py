@@ -28,17 +28,13 @@ engine = create_engine(os.getenv("DATABASE_URL"))
 db = scoped_session(sessionmaker(bind=engine))
 
 
-@app.route("/", methods=["GET", "POST"])
+@app.route("/", methods=["GET"])
 @login_required
 def index():
 
-    if request.method == "GET":
-        return render_template("index.html")
+    publicaciones = db.execute("SELECT titulo, descripcion, imagen1 FROM publicaciones")
 
-    elif request.method == "POST":
-
-        return "TODO"
-
+    return render_template("index.html", publicaciones = publicaciones)
 
 
 @app.route("/register", methods=["GET", "POST"])
@@ -94,7 +90,7 @@ def register():
             # Remember which user has logged in
             session["user_id"] = id
 
-            os.makedirs(f'posts/users_id/{id}/imagenes', exist_ok=True)
+            os.makedirs(f'static/posts/users_id/{id}/imagenes', exist_ok=True)
 
             flash("Registrado!", "exito") 
             return redirect("/")
@@ -208,16 +204,16 @@ def micuenta():
 
 @app.route("/nuevapublicacion", methods=["GET", "POST"])
 @login_required
-def nuevapublicacion():
+def nuevapublicacion():        
+    row = db.execute("SELECT nombre FROM categorias")
+
+    categorias = []
+
+    for cat in row:
+        categorias.append(cat[0])
+
     if request.method == "GET":
         
-        row = db.execute("SELECT nombre FROM categorias")
-
-        categorias = []
-
-        for cat in row:
-            categorias.append(cat[0])
-
         return render_template("nuevapublicacion.html", categorias = categorias)
 
     else:
@@ -243,32 +239,39 @@ def nuevapublicacion():
             return render_template("nuevapublicacion.html")
 
         elif imagen1 and not imagen2 and titulo and descripcion and categoria:
-            imagen1.save(os.path.join(basepath, f'posts\\users_id\\{iddd}\\imagenes', secure_filename(imagen1.filename)))
-            rutaImagen1 = f'posts\\users_id\\{iddd}\\imagenes\\' + imagen1.filename
+            imagen1.save(os.path.join(basepath, f'static\\posts\\users_id\\{iddd}\\imagenes', secure_filename(imagen1.filename)))
+            rutaImagen1 = f'static\\posts\\users_id\\{iddd}\\imagenes\\' + imagen1.filename
 
             cat = db.execute(f"SELECT id from categorias WHERE nombre = '{categoria}'").fetchone()[0]
 
             db.execute(f"INSERT INTO publicaciones (titulo, descripcion, id_categoria, imagen1, id_user) values ('{titulo}', '{descripcion}', '{cat}', '{rutaImagen1}', '{session['user_id']}')")
             db.commit()
 
+            flash("Publicado exitosamente")
+            return redirect("/")
+
         elif imagen2 and not imagen1 and titulo and descripcion and categoria:
-            imagen2.save(os.path.join(basepath, f'posts\\users_id\\{iddd}\\imagenes', secure_filename(imagen2.filename)))
-            rutaImagen2 = f'posts\\users_id\\{iddd}\\imagenes\\' + imagen2.filename
+            imagen2.save(os.path.join(basepath, f'static\\posts\\users_id\\{iddd}\\imagenes', secure_filename(imagen2.filename)))
+            rutaImagen2 = f'static\\posts\\users_id\\{iddd}\\imagenes\\' + imagen2.filename
 
             cat = db.execute(f"SELECT id from categorias WHERE nombre = '{categoria}'").fetchone()[0]
 
             db.execute(f"INSERT INTO publicaciones (titulo, descripcion, id_categoria, imagen1, id_user) values ('{titulo}', '{descripcion}', '{cat}', '{rutaImagen2}', '{session['user_id']}')")
             db.commit()
 
+            flash("Publicado exitosamente")
+            return redirect("/")
+
         elif imagen1 and imagen2 and titulo and descripcion and categoria:
-            imagen1.save(os.path.join(basepath, f'posts\\users_id\\{iddd}\\imagenes', secure_filename(imagen1.filename)))
-            imagen2.save(os.path.join(basepath, f'posts\\users_id\\{iddd}\\imagenes', secure_filename(imagen2.filename)))
-            rutaImagen1 = f'posts\\users_id\\{iddd}\\imagenes\\' + imagen1.filename
-            rutaImagen2 = f'posts\\users_id\\{iddd}\\imagenes\\' + imagen2.filename
+            imagen1.save(os.path.join(basepath, f'static\\posts\\users_id\\{iddd}\\imagenes', secure_filename(imagen1.filename)))
+            imagen2.save(os.path.join(basepath, f'static\\posts\\users_id\\{iddd}\\imagenes', secure_filename(imagen2.filename)))
+            rutaImagen1 = f'static\\posts\\users_id\\{iddd}\\imagenes\\' + imagen1.filename
+            rutaImagen2 = f'static\\posts\\users_id\\{iddd}\\imagenes\\' + imagen2.filename
 
             cat = db.execute(f"SELECT id from categorias WHERE nombre = '{categoria}'").fetchone()[0]
 
             db.execute(f"INSERT INTO publicaciones (titulo, descripcion, id_categoria, imagen1, imagen2, id_user) values ('{titulo}', '{descripcion}', '{cat}', '{rutaImagen1}', '{rutaImagen2}', '{session['user_id']}')")
             db.commit()
 
-        return redirect("/")
+            flash("Publicado exitosamente")
+            return redirect("/")

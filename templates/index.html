@@ -6,5 +6,14 @@
 
 {% block main %}
 
+    {% for dato in publicaciones %}
+        <div class="publicacion container text-center">
+            <h3>{{dato['titulo']}}</h3>
+            <p>{{dato['descripcion']}}</p>
+            <img src="{{dato['imagen1']}}" alt="">
+        </div>
+
+        
+    {% endfor %}
 
 {% endblock %}
