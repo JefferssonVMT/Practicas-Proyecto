@@ -12,10 +12,6 @@
   margin-right: auto;
 }
 
-#prueba{
-  color: red;
-}
-
 /* Navbar */
 .navbar {
   background: #0d1418;
@@ -202,6 +198,11 @@ textarea {
   border-radius: 10px;
   border: 1px solid rgba(255, 255, 255, 0.18);
   margin-top: 2vh;
+}
+@media only screen and (max-width: 600px) {
+  .publicacion {
+    width: 100%;
+  }
 }
 
 .p_imagen {

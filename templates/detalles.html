@@ -1,0 +1,21 @@
+{% extends "layout.html" %}
+
+{% block title %}
+
+{% endblock %}
+
+{% block main %}
+
+<div class="publicacion container p-0">
+    <div class="container pl-3 pr-3 pb-0">
+        <h4> publicacion['titulo'] </h4>
+        <h5> publicacion['descripcion'] </h5>
+    </div> 
+    <img src="'+ data[i]['imagen1'] +'" class="p_imagen" alt="imagen">
+    <div class="container text-center">
+        <a type="button" href="detalles/'+data[i]['pid']+'" class="btn btn-light m-2"><i class="fas fa-info-circle"
+                style="color: gray;"></i> Ver mas... </a> 
+    </div>
+</div>
+
+{% endblock %}

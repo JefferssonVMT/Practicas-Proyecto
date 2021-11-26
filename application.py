@@ -273,7 +273,7 @@ def nuevapublicacion():
 
 @app.route("/cargar_mas")
 def cargar_mas():
-    publicaciones = db.execute("SELECT * FROM publicaciones p INNER JOIN usuarios u ON p.id_user = u.id ORDER BY p.id DESC LIMIT 15")
+    publicaciones = db.execute("SELECT p.id as pid, p.titulo, p.descripcion, p.imagen1 FROM publicaciones p INNER JOIN usuarios u ON p.id_user = u.id ORDER BY p.id DESC LIMIT 15")
     
     data = []
 
@@ -281,3 +281,11 @@ def cargar_mas():
         data.append(dict(xd))
 
     return jsonify(data)
+
+@app.route("/detalles/<id>", methods = ["GET"])
+@login_required
+def info(id):
+    publicaciones = db.execute(f"SELECT p.id as pid, p.titulo, p.descripcion, p.imagen1, p.id_user FROM publicaciones p INNER JOIN usuarios u ON p.id_user = u.id where p.id = {id}").fetchone()
+    
+    print(publicaciones)
+    return render_template("detalles.html", publicaciones = publicaciones)
