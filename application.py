@@ -1,10 +1,10 @@
 import os
 from dotenv import load_dotenv
-from flask import Flask, session
+from flask import Flask, json, session
 from flask_session import Session
 from sqlalchemy import create_engine
 from sqlalchemy.orm import scoped_session, sessionmaker
-from flask import Flask, flash, redirect, render_template, request, session
+from flask import Flask, flash, redirect, render_template, request, session, jsonify
 from tempfile import mkdtemp
 from werkzeug.security import check_password_hash, generate_password_hash
 from helpers import login_required
@@ -27,15 +27,11 @@ Session(app)
 engine = create_engine(os.getenv("DATABASE_URL"))
 db = scoped_session(sessionmaker(bind=engine))
 
-
 @app.route("/", methods=["GET"])
 @login_required
 def index():
-
-    publicaciones = db.execute("SELECT titulo, descripcion, imagen1 FROM publicaciones")
-
-    return render_template("index.html", publicaciones = publicaciones)
-
+    session['ids'] = []
+    return render_template("index.html")
 
 @app.route("/register", methods=["GET", "POST"])
 def register():
@@ -119,8 +115,6 @@ def login():
             return render_template("login.html")
 
         session["user_id"] = query['id']
-
-        print(session["user_id"])
 
         return redirect("/")
 
@@ -275,3 +269,15 @@ def nuevapublicacion():
 
             flash("Publicado exitosamente")
             return redirect("/")
+
+
+@app.route("/cargar_mas")
+def cargar_mas():
+    publicaciones = db.execute("SELECT * FROM publicaciones p INNER JOIN usuarios u ON p.id_user = u.id ORDER BY p.id DESC LIMIT 15")
+    
+    data = []
+
+    for xd in publicaciones:
+        data.append(dict(xd))
+
+    return jsonify(data)

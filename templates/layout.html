@@ -11,6 +11,10 @@
 
   <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
     integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+
+  <script src="https://code.jquery.com/jquery-3.6.0.js" integrity="sha256-H+K7U5CnXl1h5ywQfKtSj8PCmoN9aaq30gDh27Xc0jk="
+    crossorigin="anonymous"></script>
+
   <link rel="stylesheet" href="static/styles.css" type="text/css">
 
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
@@ -20,26 +24,26 @@
 
 </head>
 
-<body>
+<body onload="{% block body_script %}{% endblock %}">
 
   {% if session.user_id %}
   <nav class="navbar navbar-dark">
     <a class="navbar-brand" href="/">Home</a>
-        <a class="nav-link" href="/nuevapublicacion"><i class="fas fa-plus"></i></a>
+    <a class="nav-link" href="/nuevapublicacion"><i class="fas fa-plus"></i></a>
 
-        <div class="nav-item dropleft">
-          <a class="nav-link dropdown-toggle" id="navbarDropdownMenuLink" role="button" data-toggle="dropdown" style= "color: white"
-            aria-haspopup="true" aria-expanded="false">
-            <i class="fas fa-user"></i>
-          </a>
-          <div class="dropdown-menu">
-            <a class="dropdown-item" href="/micuenta">Mi cuenta</a>
-            <a class="dropdown-item" href="/logout">Cerrar sesión</a>
-          </div>
-        </div>
+    <div class="nav-item dropleft">
+      <a class="nav-link dropdown-toggle" id="navbarDropdownMenuLink" role="button" data-toggle="dropdown"
+        style="color: white" aria-haspopup="true" aria-expanded="false">
+        <i class="fas fa-user"></i>
+      </a>
+      <div class="dropdown-menu">
+        <a class="dropdown-item" href="/micuenta">Mi cuenta</a>
+        <a class="dropdown-item" href="/logout">Cerrar sesión</a>
       </div>
     </div>
-    
+    </div>
+    </div>
+
     {% endif %}
 
   </nav>
@@ -57,6 +61,8 @@
   <main class="container m-0 mw-100" id="main">
     {% block main %}{% endblock %}
   </main>
+
+  {% block more %}{% endblock %}
 
 </body>
 

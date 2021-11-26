@@ -4,16 +4,39 @@
 
 {% endblock %}
 
+{% block body_script %}cargar_mas(){% endblock %}
+
 {% block main %}
 
-    {% for dato in publicaciones %}
-        <div class="publicacion container text-center">
-            <h3>{{dato['titulo']}}</h3>
-            <p>{{dato['descripcion']}}</p>
-            <img src="{{dato['imagen1']}}" alt="">
-        </div>
+<div class="container p0 m0"></div>
+    
 
-        
-    {% endfor %}
+<script>
+    function cargar_mas() {
+    
+        $.getJSON("/cargar_mas", function(data) {
+            
+            for (let i = 0; i < data.length; i++) {
+                $("#main").append('<div class="publicacion container p-0">\
+                    <div class="container pl-3 pr-3 pb-0">\
+                <h4>' + data[i]['nombre_usuario'] + '</h4>\
+                <h5>' + data[i]['titulo'] + '</h5>\
+                <p>' + data[i]['descripcion'] + '</p>\
+            </div> <img src="'+ data[i]['imagen1'] +'" class="p_imagen" alt="imagen">\
+            <div class="container text-center">\
+                <!---<button type="button" class="btn btn-light m-2" data-toggle="button"><i class="fas fa-info-circle" style="color: gray;"></i>  Ver mas... </button> --->\
+            </div>\
+        </div>');
+            }
+        });
+    };
+</script>
+
+{% endblock %}
+
+{% block more %}
+<div id="load" class="container text-center">
+    <button class="btn btn-primary m-3" onclick="cargar_mas()">Cargar mas...</button>
+</div>
 
 {% endblock %}
