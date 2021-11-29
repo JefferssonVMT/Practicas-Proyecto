@@ -112,7 +112,7 @@ def login():
 
         if not query or not check_password_hash(query['hash'], request.form.get("password")):
             flash("Nombre o contraseña incorrectos", "error")
-            return render_template("login.html")
+            return render_template("login.html", error = "password")
 
         session["user_id"] = query['id']
 
@@ -273,7 +273,7 @@ def nuevapublicacion():
 
 @app.route("/cargar_mas")
 def cargar_mas():
-    publicaciones = db.execute("SELECT p.id as pid, p.titulo, p.descripcion, p.imagen1 FROM publicaciones p INNER JOIN usuarios u ON p.id_user = u.id ORDER BY p.id DESC LIMIT 15")
+    publicaciones = db.execute("SELECT p.id as pid, p.titulo, p.descripcion, p.imagen1, u.nombre_usuario as user FROM publicaciones p INNER JOIN usuarios u ON p.id_user = u.id ORDER BY p.id DESC LIMIT 15")
     
     data = []
 
@@ -282,10 +282,25 @@ def cargar_mas():
 
     return jsonify(data)
 
-@app.route("/detalles/<id>", methods = ["GET"])
+@app.route("/detalles", methods = ["GET", "POST"])
 @login_required
-def info(id):
-    publicaciones = db.execute(f"SELECT p.id as pid, p.titulo, p.descripcion, p.imagen1, p.id_user FROM publicaciones p INNER JOIN usuarios u ON p.id_user = u.id where p.id = {id}").fetchone()
+def info():
+    id = request.args.get('id', type = int)
+
+    if not id or id <= 0:
+        flash("Ha ocurrido un error buscando la publicacion", "error")
+        return render_template("index.html")
+
+    publicaciones = db.execute(f"SELECT p.id as pid, p.titulo, p.descripcion, p.imagen1, p.imagen2, p.id_user, u.nombre_usuario as user, u.numero_telefono as numero, u.correo as correo FROM publicaciones p INNER JOIN usuarios u ON p.id_user = u.id where p.id = {id}").fetchone()
     
-    print(publicaciones)
-    return render_template("detalles.html", publicaciones = publicaciones)
+    comentarios = db.execute(f"SELECT comentario, nombre_usuario FROM reseñas r INNER JOIN usuarios u ON r.user_id = u.id WHERE publicacion_id = {id}")
+
+    if request.method == "GET":
+        return render_template("detalles.html", publicaciones = publicaciones, comentarios = comentarios, id = id)
+
+    else:
+        db.execute("insert into reseñas (publicacion_id, comentario, user_id) values (:publicacion_id, :comentario, :user_id)",
+            {"publicacion_id": id, "comentario": request.form.get("comentario"), "user_id": session['user_id']})
+        db.commit()
+
+        return redirect(f"detalles?id={id}")

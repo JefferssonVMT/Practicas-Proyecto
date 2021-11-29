@@ -16,15 +16,15 @@ query_create_posts = "CREATE TABLE publicaciones(id SERIAL PRIMARY KEY NOT NULL,
 query_create_reseñas = "CREATE TABLE reseñas(id SERIAL PRIMARY KEY NOT NULL, comentario VARCHAR, user_id INTEGER REFERENCES usuarios, publicacion_id INTEGER REFERENCES publicaciones)"
 
 
-#db.execute(query_create_users)
-#db.execute(query_create_category)
-#db.execute(query_create_posts)
-#db.execute(query_create_reseñas)
+db.execute(query_create_users)
+db.execute(query_create_category)
+db.execute(query_create_posts)
+db.execute(query_create_reseñas)
 
-#categorias = ("Ropa y accesorios","Electrónica","Familia","Hogar y jardín","Vehículos","Clasificados","Ofertas","Entretenimiento","Pasatiempos","Vivienda")
+categorias = ("Ropa y accesorios","Electrónica","Familia","Hogar y jardín","Vehículos","Clasificados","Ofertas","Entretenimiento","Pasatiempos","Vivienda")
 
-#for cat in categorias:
-#    db.execute(f"insert into categorias (nombre) values ('{cat}')")
+for cat in categorias:
+    db.execute(f"insert into categorias (nombre) values ('{cat}')")
 
 db.commit()
 

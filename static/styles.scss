@@ -218,7 +218,6 @@ textarea{
 }
 
 .publicacion {
-    height: 30rem;
     width: 50rem;
     background: rgba(255, 255, 255, 0.7);
     box-shadow: 0 8px 32px 0 rgba( 31, 38, 135, 0.37 );
@@ -232,7 +231,53 @@ textarea{
 }
 
 .p_imagen{
-    height: 65%;
+    height: 23rem;
     width: 100%;
     object-fit: cover;
+    padding-bottom: 1%;
+}
+
+#comm_form{
+    display: flex;
+    align-content: center;
+    flex-wrap: wrap;
+    justify-content: space-between;
+
+    @include small(){
+        justify-content: center;
+    }
+}
+
+.reviews{
+    border-radius: 10px;
+    border: 1px solid rgba(0, 0, 0, 0.18);
+    margin-bottom: 1vh;
+    background-color: aliceblue;
+}
+
+  #comentar{
+
+
+    @include small(){
+        text-align: center;
+    }
+  }
+
+#drop_cont{
+
+    width: unset;
+
+    @include small(){
+        width: 100%;
+        justify-content: end;
+    }
+}
+
+#plus{
+    position: absolute;
+    right: 50%;
+
+    @include small(){
+        position: unset;
+    }
 }

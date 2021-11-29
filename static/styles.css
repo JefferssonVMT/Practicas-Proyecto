@@ -191,7 +191,6 @@ textarea {
 }
 
 .publicacion {
-  height: 30rem;
   width: 50rem;
   background: rgba(255, 255, 255, 0.7);
   box-shadow: 0 8px 32px 0 rgba(31, 38, 135, 0.37);
@@ -206,9 +205,55 @@ textarea {
 }
 
 .p_imagen {
-  height: 65%;
+  height: 23rem;
   width: 100%;
   object-fit: cover;
+  padding-bottom: 1%;
+}
+
+#comm_form {
+  display: flex;
+  align-content: center;
+  flex-wrap: wrap;
+  justify-content: space-between;
+}
+@media only screen and (max-width: 600px) {
+  #comm_form {
+    justify-content: center;
+  }
+}
+
+.reviews {
+  border-radius: 10px;
+  border: 1px solid rgba(0, 0, 0, 0.18);
+  margin-bottom: 1vh;
+  background-color: aliceblue;
+}
+
+@media only screen and (max-width: 600px) {
+  #comentar {
+    text-align: center;
+  }
+}
+
+#drop_cont {
+  width: unset;
+}
+@media only screen and (max-width: 600px) {
+  #drop_cont {
+    width: 100%;
+    justify-content: end;
+  }
+}
+
+#plus {
+  position: absolute;
+  right: 50%;
+}
+@media only screen and (max-width: 600px) {
+  #plus {
+    position: unset;
+  }
 }
 
 /*# sourceMappingURL=styles.css.map */
