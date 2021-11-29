@@ -66,7 +66,7 @@ def register():
             password = generate_password_hash(request.form.get("password"))
 
             if not correo and numero_telefono:
-                db.execute(f"INSERT INTO usuarios (nombre, apellido, nombre_usuario, hash, numero_telefono) VALUES ('{request.form.get('nombre')}','{request.form.get('apellido')}', '{request.form.get('nombre_usuario')}', '{password}', '{numero_telefono}')")
+                db.execute(f"INSERT INTO usuarios (nombre, apellido, nombre_usuario, hash, numero_telefono) VALUES ('{request.form.get('nombre')}','{request.form.get('apellido')}', '{request.form.get('nombre_usuario')}', '{password}', {numero_telefono})")
                 db.commit()
 
             elif not numero_telefono and correo:
@@ -78,7 +78,7 @@ def register():
                 db.commit()
 
             else:
-                db.execute(f"INSERT INTO usuarios (nombre, apellido, nombre_usuario, hash, correo, numero_telefono) VALUES ('{request.form.get('nombre')}','{request.form.get('apellido')}', '{request.form.get('nombre_usuario')}', '{password}', '{correo}'', '{numero_telefono}')")
+                db.execute(f"INSERT INTO usuarios (nombre, apellido, nombre_usuario, hash, correo, numero_telefono) VALUES ('{request.form.get('nombre')}','{request.form.get('apellido')}', '{request.form.get('nombre_usuario')}', '{password}', '{correo}', {numero_telefono})")
                 db.commit()
 
             id = db.execute(f"SELECT id FROM usuarios WHERE nombre_usuario= '{request.form.get('nombre_usuario')}'").fetchone()["id"]
@@ -88,7 +88,7 @@ def register():
 
             os.makedirs(f'static/posts/users_id/{id}/imagenes', exist_ok=True)
 
-            flash("Registrado!", "exito") 
+            flash("Registrado!", "exito")
             return redirect("/")
 
 
@@ -99,11 +99,11 @@ def login():
     session.clear()
 
     if request.method == "POST":
-        
+
         if not request.form.get('nombre_usuario'):
             flash("Debe ingresar el correo nombre de usuario", "error")
             return render_template("login.html", error = "username")
-        
+
         elif not request.form.get('password'):
             flash("Debe ingresar la contraseña", "error")
             return render_template("login.html", error = "password")
@@ -136,7 +136,7 @@ def cambiarcontraseña():
         if newpassword != confirmation:
             flash("Las contraseñas no coindicen", "error")
             return render_template("actualizarcontraseña.html", error = "confirmation")
-        
+
         elif not newpassword and not confirmation:
             flash("Debe ingresar los datos", "error")
             return render_template("actualizarcontraseña.html", error = "password")
@@ -164,7 +164,7 @@ def logout():
 @app.route("/micuenta", methods=["GET", "POST"])
 @login_required
 def micuenta():
-    
+
     usuario = db.execute(f"SELECT * FROM usuarios WHERE id = {session['user_id']}")
 
     if request.method == "GET":
@@ -176,16 +176,16 @@ def micuenta():
             flash("Telefono invalido o con formmato incorrecto", "error")
             return render_template("micuenta.html", usuario = usuario, error = "phone")
 
-        if not request.form.get('phone') and request.form.get('mail'):
-            db.execute(f"UPDATE usuarios SET correo = '{request.form.get('mail')}' WHERE id = {session['user_id']}")
+        if not request.form.get('phone') and request.form.get('correo'):
+            db.execute(f"UPDATE usuarios SET correo = '{request.form.get('correo')}' WHERE id = {session['user_id']}")
             db.commit()
 
-        elif not request.form.get('mail') and request.form.get('phone'):
+        elif not request.form.get('correo') and request.form.get('phone'):
             db.execute(f"UPDATE usuarios SET numero_telefono = '{request.form.get('phone')}' WHERE id = {session['user_id']}")
             db.commit()
 
-        elif request.form.get('phone') and request.form.get('mail'):
-            db.execute(f"UPDATE usuarios SET correo = '{request.form.get('mail')}', '{request.form.get('phone')}' WHERE id = {session['user_id']}")
+        elif request.form.get('phone') and request.form.get('correo'):
+            db.execute(f"UPDATE usuarios SET correo = '{request.form.get('correo')}', '{request.form.get('phone')}' WHERE id = {session['user_id']}")
             db.commit()
 
         else:
@@ -198,7 +198,7 @@ def micuenta():
 
 @app.route("/nuevapublicacion", methods=["GET", "POST"])
 @login_required
-def nuevapublicacion():        
+def nuevapublicacion():
     row = db.execute("SELECT nombre FROM categorias")
 
     categorias = []
@@ -207,7 +207,7 @@ def nuevapublicacion():
         categorias.append(cat[0])
 
     if request.method == "GET":
-        
+
         return render_template("nuevapublicacion.html", categorias = categorias)
 
     else:
@@ -274,7 +274,7 @@ def nuevapublicacion():
 @app.route("/cargar_mas")
 def cargar_mas():
     publicaciones = db.execute("SELECT p.id as pid, p.titulo, p.descripcion, p.imagen1, u.nombre_usuario as user FROM publicaciones p INNER JOIN usuarios u ON p.id_user = u.id ORDER BY p.id DESC LIMIT 15")
-    
+
     data = []
 
     for xd in publicaciones:
@@ -292,7 +292,7 @@ def info():
         return render_template("index.html")
 
     publicaciones = db.execute(f"SELECT p.id as pid, p.titulo, p.descripcion, p.imagen1, p.imagen2, p.id_user, u.nombre_usuario as user, u.numero_telefono as numero, u.correo as correo FROM publicaciones p INNER JOIN usuarios u ON p.id_user = u.id where p.id = {id}").fetchone()
-    
+
     comentarios = db.execute(f"SELECT comentario, nombre_usuario FROM reseñas r INNER JOIN usuarios u ON r.user_id = u.id WHERE publicacion_id = {id}")
 
     if request.method == "GET":
