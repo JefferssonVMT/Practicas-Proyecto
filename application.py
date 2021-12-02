@@ -58,6 +58,10 @@ def register():
             flash("Telefono invalido o formato incorrecto", "error")
             return render_template("register.html", error = "telefono")
 
+        if len(request.form.get("telefono")) > 8:
+            flash("Telefono invalido o formato incorrecto", "error")
+            return render_template("register.html", error = "telefono")
+
         if db.execute(f"SELECT * FROM usuarios WHERE nombre_usuario = '{request.form.get('nombre_usuario')}'").rowcount > 0:
             flash("El usuario ya existe", "error")
             return render_template("register.html", error = "username")
@@ -226,15 +230,15 @@ def nuevapublicacion():
 
         if not titulo or not descripcion or not categoria:
             flash("Debe introducir todos campos de texto solicitados", "error")
-            return render_template("nuevapublicacion.html")
+            return render_template("nuevapublicacion.html", categorias = categorias)
 
         elif not imagen1 and not imagen2:
             flash("Se requiere subir almenos una imagen", "error")
-            return render_template("nuevapublicacion.html")
+            return render_template("nuevapublicacion.html", categorias = categorias)
 
         elif imagen1 and not imagen2 and titulo and descripcion and categoria:
-            imagen1.save(os.path.join(basepath, f'static\\posts\\users_id\\{iddd}\\imagenes', secure_filename(imagen1.filename)))
-            rutaImagen1 = f'static\\posts\\users_id\\{iddd}\\imagenes\\' + imagen1.filename
+            imagen1.save(os.path.join(basepath, f'static//posts//users_id//{iddd}//imagenes', secure_filename(imagen1.filename)))
+            rutaImagen1 = f'static//posts//users_id//{iddd}//imagenes//' + imagen1.filename
 
             cat = db.execute(f"SELECT id from categorias WHERE nombre = '{categoria}'").fetchone()[0]
 
@@ -245,8 +249,8 @@ def nuevapublicacion():
             return redirect("/")
 
         elif imagen2 and not imagen1 and titulo and descripcion and categoria:
-            imagen2.save(os.path.join(basepath, f'static\\posts\\users_id\\{iddd}\\imagenes', secure_filename(imagen2.filename)))
-            rutaImagen2 = f'static\\posts\\users_id\\{iddd}\\imagenes\\' + imagen2.filename
+            imagen2.save(os.path.join(basepath, f'static//posts//users_id//{iddd}//imagenes', secure_filename(imagen2.filename)))
+            rutaImagen2 = f'static//posts//users_id//{iddd}//imagenes//' + imagen2.filename
 
             cat = db.execute(f"SELECT id from categorias WHERE nombre = '{categoria}'").fetchone()[0]
 
@@ -257,10 +261,10 @@ def nuevapublicacion():
             return redirect("/")
 
         elif imagen1 and imagen2 and titulo and descripcion and categoria:
-            imagen1.save(os.path.join(basepath, f'static\\posts\\users_id\\{iddd}\\imagenes', secure_filename(imagen1.filename)))
-            imagen2.save(os.path.join(basepath, f'static\\posts\\users_id\\{iddd}\\imagenes', secure_filename(imagen2.filename)))
-            rutaImagen1 = f'static\\posts\\users_id\\{iddd}\\imagenes\\' + imagen1.filename
-            rutaImagen2 = f'static\\posts\\users_id\\{iddd}\\imagenes\\' + imagen2.filename
+            imagen1.save(os.path.join(basepath, f'static//posts//users_id//{iddd}//imagenes', secure_filename(imagen1.filename)))
+            imagen2.save(os.path.join(basepath, f'static//posts//users_id//{iddd}//imagenes', secure_filename(imagen2.filename)))
+            rutaImagen1 = f'static//posts//users_id//{iddd}//imagenes//' + imagen1.filename
+            rutaImagen2 = f'static//posts//users_id//{iddd}//imagenes//' + imagen2.filename
 
             cat = db.execute(f"SELECT id from categorias WHERE nombre = '{categoria}'").fetchone()[0]
 
