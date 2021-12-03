@@ -27,10 +27,11 @@ Session(app)
 engine = create_engine(os.getenv("DATABASE_URL"))
 db = scoped_session(sessionmaker(bind=engine))
 
+
 @app.route("/", methods=["GET"])
 @login_required
 def index():
-    session['ids'] = []
+    session['index'] = 0
     return render_template("index.html")
 
 @app.route("/register", methods=["GET", "POST"])
@@ -232,7 +233,20 @@ def nuevapublicacion():
             flash("Debe introducir todos campos de texto solicitados", "error")
             return render_template("nuevapublicacion.html", categorias = categorias)
 
-        elif not imagen1 and not imagen2:
+        archivo = open("static/diccionario.txt").read()
+        print(archivo)
+        
+        for palabra in titulo.split():
+            if palabra in archivo:
+                flash("No esta permitido el vocabulario vulgar, ofensivo o polemico...", "error")
+                return render_template("nuevapublicacion.html", categorias = categorias)
+
+        for palabra in descripcion.split():
+            if palabra in archivo:
+                flash("No esta permitido el vocabulario vulgar, ofensivo o polemico...", "error")
+                return render_template("nuevapublicacion.html", categorias = categorias)
+
+        if not imagen1 and not imagen2:
             flash("Se requiere subir almenos una imagen", "error")
             return render_template("nuevapublicacion.html", categorias = categorias)
 
@@ -277,7 +291,12 @@ def nuevapublicacion():
 
 @app.route("/cargar_mas")
 def cargar_mas():
-    publicaciones = db.execute("SELECT p.id as pid, p.titulo, p.descripcion, p.imagen1, u.nombre_usuario as user FROM publicaciones p INNER JOIN usuarios u ON p.id_user = u.id ORDER BY p.id DESC LIMIT 15")
+    publicaciones = db.execute(f"SELECT p.id as pid, p.titulo, p.descripcion, p.imagen1, u.nombre_usuario as user FROM publicaciones p INNER JOIN usuarios u ON p.id_user = u.id WHERE p.id > {session['index'] + 2} ORDER BY p.id DESC LIMIT 2")
+    
+    if db.execute("SELECT * FROM publicaciones").rowcount > session['index']:
+        session['index'] += 2
+
+    print(f"Numero de registro: { session['index'] }")
 
     data = []
 
