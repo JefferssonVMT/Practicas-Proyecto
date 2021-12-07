@@ -7,91 +7,177 @@ Administrar cuenta
 {% block main %}
 
 <div class="content">
-  
-    <div class="container mt-5">
-      <div class="row justify-content-center">
-    
-        <div class="col-12 col-md-6">
-          <div class="card">
-            <div class="card-body">
-              <h5 class="card-title text-center mb-4">Tus Datos de usuario</h5>
-              <div class="mb-3 row">
-                  {%for datos in usuario%}
-                <label for="username" class="col-sm-4 col-form-label">Username:</label>
-                <div class="col-sm-8">
-                  <input type="text" form="update-my-profile" class="form-control" id="username"  name="username"
-                    placeholder="panchito perez" disabled value="{{datos["nombre_usuario"]}}"></div>
-    
+
+  <div class="container mt-5">
+    <div class="row justify-content-center">
+
+      <div class="col-12 col-md-6">
+        <div class="card" id="user_info">
+          <div class="card-body">
+            <h4 class="card-title text-center mb-4">Tus Datos de usuario</h4>
+            <div class="mb-3 row">
+              {%for datos in usuario%}
+              <label for="username" class="col-sm-4 col-form-label">Username:</label>
+              <div class="col-sm-8">
+                <input type="text" form="update-my-profile" class="form-control" id="username" name="username"
+                  placeholder="{{datos["nombre_usuario"]}}" disabled value="{{datos["nombre_usuario"]}}">
               </div>
-              <div class="mb-3 row">
-                <label for="email" class="col-sm-4 col-form-label">Nombre:</label>
-                <div class="col-sm-8">
-                  <input type="email" form="update-my-profile" class="form-control" id="email" name="email"
-                    placeholder="sinpanza@quisieraestar.com" disabled value="{{datos["nombre"]}}">
-                </div>
+
+            </div>
+            <div class="mb-3 row">
+              <label for="email" class="col-sm-4 col-form-label">Nombre:</label>
+              <div class="col-sm-8">
+                <input type="email" form="update-my-profile" class="form-control" id="email" name="email"
+                  placeholder="{{datos["nombre"]}}" disabled value="{{datos["nombre"]}}">
               </div>
-              
-              <div class="mb-3 row">
-                <label for="cycle-group" class="col-sm-4 col-form-label">Apellido:</label>
-                <div class="col-sm-8">
-                  <input type="text" form="update-my-profile" class="form-control" id="cycle-group" name="cycle-group"
-                    placeholder="{{datos["apellido"]}}" disabled value="{{datos["apellido"]}}">
-                </div>
+            </div>
+
+            <div class="mb-3 row">
+              <label for="cycle-group" class="col-sm-4 col-form-label">Apellido:</label>
+              <div class="col-sm-8">
+                <input type="text" form="update-my-profile" class="form-control" id="cycle-group" name="cycle-group"
+                  placeholder="{{datos["apellido"]}}" disabled value="{{datos["apellido"]}}">
               </div>
-              
-              {% if datos["numero_telefono"]%}
-              <div class="mb-3 row">
-                <label for="phone" class="col-sm-4 col-form-label">Teléfono:</label>
-                <div class="col-sm-8">
-                  <input type="tel" form="update-my-profile" class="form-control" id="phone" name="phone" value="{{datos["numero_telefono"]}}" disabled>
-                </div>
+            </div>
+
+            {% if datos["numero_telefono"]%}
+            <div class="mb-3 row">
+              <label for="phone" class="col-sm-4 col-form-label">Teléfono:</label>
+              <div class="col-sm-8">
+                <input type="tel" form="update-my-profile" class="form-control" id="phone" name="phone" value="{{datos["numero_telefono"]}}">
               </div>
-              {% else %}
-              <div class="mb-3 row">
-                <label for="phone" class="col-sm-4 col-form-label">Teléfono:</label>
-                <div class="col-sm-8">
-                  <input type="tel" form="update-my-profile" class="form-control" id="phone" name="phone" placeholder="Numero telefonico" minlength="8">
-                </div>
-                {% if error %}
-                    <style>
-                        #{{error}}{
-                          border-color: red;
-                        }
-                    </style>
-                {% endif %}
+            </div>
+            {% else %}
+            <div class="mb-3 row">
+              <label for="phone" class="col-sm-4 col-form-label">Teléfono:</label>
+              <div class="col-sm-8">
+                <input type="tel" form="update-my-profile" class="form-control" id="phone" name="phone" placeholder="Numero telefonico" minlength="8">
               </div>
-              {% endif %}
-              
-              {% if datos["correo"]%}
-              <div class="mb-3 row">
-                <label for="correp" class="col-sm-4 col-form-label">Correo:</label>
-                <div class="col-sm-8">
-                  <input type="email" form="update-my-profile" class="form-control" id="mail" name="correo" value="{{datos["correo"]}}" disabled>
-                </div>
-              </div>
-              {% else %}
-              <div class="mb-3 row">
-                <label for="correp" class="col-sm-4 col-form-label">Correo:</label>
-                <div class="col-sm-8">
-                  <input type="email" form="update-my-profile" class="form-control" name="correo" placeholder="Correo electronico">
-                </div>
-              </div>
+              {% if error %}
+              <style>
+                #{{error}}
+                {
+                  border-color: red;
+                }
+              </style>
               {% endif %}
             </div>
-            {%endfor%}
+            {% endif %}
 
-            <div class="card-footer d-flex justify-content-center p-1 m-1">
-              <a href="/actualizarcontraseña" id="cambiar_contraseña" class="p-0">
-                <input type="submit" class="submit" id="cam_pass" value="Cambiar contraseña">
-              </a>
-              <form action="/micuenta" id="update-my-profile" method="post">
-              <input type="submit" value="Guardar" class="submit" style="height: 100%;">
-              </form>
+            {% if datos["correo"]%}
+            <div class="mb-3 row">
+              <label for="correp" class="col-sm-4 col-form-label">Correo:</label>
+              <div class="col-sm-8">
+                <input type="email" form="update-my-profile" class="form-control" id="mail" name="correo" value="{{datos["correo"]}}" disabled>
+              </div>
+            </div>
+            {% else %}
+            <div class="mb-3 row">
+              <label for="correp" class="col-sm-4 col-form-label">Correo:</label>
+              <div class="col-sm-8">
+                <input type="email" form="update-my-profile" class="form-control" id="mail" name="correo" placeholder="Correo electronico">
+              </div>
+            </div>
+            {% endif %}
+          </div>
+          {%endfor%}
+
+          <div class="card-footer d-flex justify-content-around p-1 m-1">
+            <a href="/actualizarcontraseña" id="cambiar_contraseña" class="p-0">
+              <input type="submit" class="btn btn-primary" id="cam_pass" value="Cambiar contraseña">
+            </a>
+              <input type="button" value="   Guardar   " class="btn btn-success" data-toggle="modal" data-target="#GuadarInfo" style="height: 100%;">
+          </div>
+
+          <div class="modal fade" id="GuadarInfo" tabindex="-1" role="dialog" aria-labelledby="Modal" aria-hidden="true">
+            <div class="modal-dialog modal-dialog-centered" role="document">
+              <div class="modal-content">
+                <div class="modal-header">
+                  <h5 class="modal-title" id="exampleModalLongTitle">Actualizar información</h5>
+                  <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                  </button>
+                </div>
+                <div class="modal-body">
+                  <p>¿Estas seguro que deseas modificar tu información de usuario?</p>
+                </div>
+                <div class="modal-footer">
+                  <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancelar</button>
+                  <form action="/micuenta" id="update-my-profile" method="post">
+                    <input type="submit" value="   Guardar   " class="btn btn-success" data-toggle="modal" data-target="#GuadarInfo" style="height: 100%;">
+                  </form>
+                </div>
+              </div>
             </div>
           </div>
+
+          <div class="card-footer d-flex justify-content-around p-1 m-1">
+            <strong>Desactivar mi cuenta</strong>
+            <button class="btn btn-danger" data-toggle="modal" data-target="#Modal">Desactivar</button>
+          </div>
+
+          <div class="modal fade" id="Modal" tabindex="-1" role="dialog" aria-labelledby="Modal" aria-hidden="true">
+            <div class="modal-dialog modal-dialog-centered" role="document">
+              <div class="modal-content">
+                <div class="modal-header">
+                  <h5 class="modal-title" id="exampleModalLongTitle">Desactivacion de la cuenta</h5>
+                  <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                  </button>
+                </div>
+                <div class="modal-body">
+                  <p>Esta accion desactivará tu cuenta, los demas usuarios no podran comentar ni ver tu publicaciones.</p>
+                  <p>Tu cuenta será reactivada la proxima vez que inicies sesion.</p>
+                  
+                  <strong>¿Estas seguro que deseas desactivar tu cuenta?</strong>
+                </div>
+                <div class="modal-footer">
+                  <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancelar</button>
+                  <form action="/desactivar_cuenta">
+                    <button id="desactivar_cuenta" type="submit" class="btn btn-danger">Aceptar</button>
+                  </form>
+                </div>
+              </div>
+            </div>
+          </div>
+
         </div>
-    
       </div>
     </div>
-    </div>
+
+    <br><br>
+
+  </div>
+</div>
+
+{% if publicaciones.rowcount > 0 %}
+<div class="container text-center">
+  <table class="scrolldown table table-striped table-sm">
+    <thead class="thead-dark bg-dark justify-content-center">
+      <tr>
+        <th scope="col"><h4>Mis publicaciones</h4></th>
+      </tr>
+    </thead>
+    
+    <tbody>
+      
+      {% for pub in publicaciones %}
+      <tr id="pub{{pub['id']}}">
+        <td class="post justify-content-between">
+          <div class="justify-content-start p-0 m-0">
+            <strong class="titulo_dashboard d-flex">{{pub['titulo'][0:20]}}</strong>
+            <p class="m-0">{{pub['descripcion'][0:20]}} ...</p>
+          </div>
+          <button class="btn btn-danger vendido" onclick="vendido({{pub['id']}})"><i class="fas fa-times"></i></button>
+        </td>
+      </tr>
+      {% endfor %}
+    </tbody>
+  </table>
+</div>
+
+<br><br>
+
+{% endif %}
+
 {% endblock %}

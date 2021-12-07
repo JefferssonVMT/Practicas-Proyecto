@@ -9,35 +9,6 @@ Comunidad Emprendedora
 {% block main %}
 
 <div class="container p0 m0"></div>
-    
-
-<script>
-    function cargar_mas() {
-    
-        $.getJSON("/cargar_mas", function(data) {
-            
-            for (let i = 0; i < data.length; i++) {
-                $("#main").append('\
-                <div class="publicacion container p-0">\
-                    <div class="container pl-3 pr-3 pb-0">\
-                        <h4>' + data[i]['user'] + '</h4>\
-                        <h5>' + data[i]['titulo'] + '</h5>\
-                        <p>' + data[i]['descripcion'] + '</p>\
-                    </div>\
-                    <img src=\"'+ data[i]['imagen1'] +'" class="p_imagen" alt="imagen">\
-                    <div class="container text-center">\
-                        <a type="button" onclick="redirect('+data[i]['pid']+')" class="btn btn-light m-2"><i class="fas fa-info-circle" style="color: gray;"></i>  Ver mas... </a> \
-                    </div>\
-                </div>');
-            }
-        });
-    };
-
-    function redirect(id){
-        window.location.href = "detalles?id=" + id;
-    };
-
-</script>
 
 {% endblock %}
 

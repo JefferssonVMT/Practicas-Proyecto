@@ -1,11 +1,4 @@
 @charset "UTF-8";
-@import url("https://fonts.googleapis.com/css2? family = Noto + Serif + Display: wght @ 300 & display = swap");
-@import url("https://fonts.googleapis.com/css2?");
-@import url("https://fonts.googleapis.com/css2?family=Abel&family=Great+Vibes&family=Indie+Flower&family=Poller+One&display=swap");
-@import url("https://fonts.googleapis.com/css?family=Lato:400,300,700");
-@import url("https://fonts.googleapis.com/css2?family=Wire+One&display=swap");
-@import url("https://fonts.googleapis.com/css?family=Raleway:400,700,900");
-/* Base styling */
 .icon {
   display: block;
   margin-left: auto;
@@ -45,12 +38,10 @@ body, html {
   text-shadow: 0px 0px 3px rgba(117, 117, 117, 0.12);
   color: #0d2c3a;
   text-decoration: none;
-  font-family: "Prata", serif;
 }
 .login-box h3 {
   color: #0d2c3a;
   text-align: center;
-  font-family: "Poller One", cursive;
 }
 
 .caja {
@@ -84,13 +75,7 @@ body, html {
 
 #actualizarcontraseña {
   width: 450px;
-  height: 500px;
   margin: 7em auto;
-}
-
-#cambiar_contraseña {
-  margin-right: 10%;
-  padding: 10%;
 }
 
 cam_pass {
@@ -100,7 +85,6 @@ cam_pass {
 .username, .nombre, #apellido, #correo, #telefono {
   width: 76%;
   color: #6d6c6c;
-  font-family: serif;
   font-weight: 700;
   font-size: 14px;
   letter-spacing: 1px;
@@ -141,21 +125,6 @@ cam_pass {
   border: 2px solid #117dbb;
 }
 
-.submit {
-  cursor: pointer;
-  border-radius: 0.5rem;
-  color: #fff;
-  background: linear-gradient(190deg, #139fbb 0%, #042041 100%);
-  border: 0;
-  padding-left: 20px;
-  padding-right: 20px;
-  padding-bottom: 10px;
-  padding-top: 10px;
-  font-weight: bold;
-  font-size: 15px;
-  box-shadow: 0 0 20px 1px rgba(0, 0, 0, 0.04);
-}
-
 #formFooter {
   background-color: #f6f6f6;
   border-top: 1px solid #dce8f1;
@@ -175,7 +144,6 @@ cam_pass {
   background-color: #f3d5d5;
   color: #2a2a2a;
   border-style: none;
-  font-family: "Strait", sans-serif;
 }
 
 .exito {
@@ -253,6 +221,80 @@ textarea {
 @media only screen and (max-width: 600px) {
   #plus {
     position: unset;
+  }
+}
+
+.strong, strong {
+  margin: 0%;
+  align-self: center;
+}
+
+.vendido {
+  height: min-content;
+  align-self: center;
+}
+
+table {
+  border-collapse: separate;
+  border: solid black 1px;
+  border-radius: 6px;
+}
+
+#user_info {
+  border-collapse: separate;
+  border: solid black 1px;
+  border-radius: 6px;
+}
+
+th {
+  border-top: none;
+}
+
+td:first-child, th:first-child {
+  border-left: none;
+}
+
+.post {
+  display: flex;
+}
+@media only screen and (max-width: 600px) {
+  .post {
+    display: block;
+  }
+}
+
+.titulo_dashboard {
+  justify-content: start;
+}
+@media only screen and (max-width: 600px) {
+  .titulo_dashboard {
+    justify-content: center;
+  }
+}
+
+/* To display the block as level element */
+table.scrolldown tbody, table.scrolldown thead {
+  display: grid;
+}
+
+table.scrolldown tbody {
+  /* Set the height of table body */
+  max-height: 575px;
+  /* Set vertical scroll */
+  overflow-y: auto;
+  /* Hide the horizontal scroll */
+  overflow-x: hidden;
+  /* Sacado de:  */
+  /* https://www.geeksforgeeks.org/how-to-create-table-with-100-width-with-vertical-scroll-inside-table-body-in-html */
+}
+
+.table p {
+  display: flex;
+  justify-content: start;
+}
+@media only screen and (max-width: 600px) {
+  .table p {
+    justify-content: center;
   }
 }
 

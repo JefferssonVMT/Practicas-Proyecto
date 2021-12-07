@@ -16,19 +16,21 @@
         <br>
         <strong>Numero telefonico: </strong>
         {% if publicaciones['numero'] %}
-            <p>{{publicaciones['numero']}}</p>
+            <a href="tel:+505{{publicaciones['numero']}}">{{publicaciones['numero']}}</a>
         {% else %}
             <p>Este usuario aun no ha proporcionado informacion de numero telefonico</p>
         {% endif %}
-        
+
+        <br>
 
         <strong>Correo electronico: </strong>
         {% if publicaciones['correo'] %}
-            <p>{{publicaciones['correo']}}</p>
+            <a href="mailto:{{publicaciones['correo']}}">{{publicaciones['correo']}}</a>
         {% else %}
             <p>Este usuario aun no ha proporcionado informacion de correo electronico</p>
         {% endif %}
     </div> 
+    <br>
 
     <div class="container d-flex p-0">
         <img src="/{{publicaciones['imagen1']}}" class="p_imagen" alt="imagen">
@@ -68,18 +70,5 @@
 {% endfor %}
 
 <br><br><br>
-
-
-<script>
-    var comm = document.getElementById("comentario");
-
-comm.addEventListener("keyup", function(event) {
-  if (event.keyCode === 13) {
-    event.preventDefault();
-    document.getElementById("enviar").click();
-  }
-}); 
-</script>
-
 
 {% endblock %}

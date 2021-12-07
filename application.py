@@ -1,6 +1,7 @@
 import os
 from dotenv import load_dotenv
 from flask import Flask, json, session
+from flask.scaffold import _matching_loader_thinks_module_is_package
 from flask_session import Session
 from sqlalchemy import create_engine
 from sqlalchemy.orm import scoped_session, sessionmaker
@@ -27,6 +28,17 @@ Session(app)
 engine = create_engine(os.getenv("DATABASE_URL"))
 db = scoped_session(sessionmaker(bind=engine))
 
+@app.after_request
+def add_header(r):
+    """
+    Add headers to both force latest IE rendering engine or Chrome Frame,
+    and also to cache the rendered page for 10 minutes.
+    """
+    r.headers["Cache-Control"] = "no-cache, no-store, must-revalidate"
+    r.headers["Pragma"] = "no-cache"
+    r.headers["Expires"] = "0"
+    r.headers['Cache-Control'] = 'public, max-age=0'
+    return r
 
 @app.route("/", methods=["GET"])
 @login_required
@@ -71,19 +83,19 @@ def register():
             password = generate_password_hash(request.form.get("password"))
 
             if not correo and numero_telefono:
-                db.execute(f"INSERT INTO usuarios (nombre, apellido, nombre_usuario, hash, numero_telefono) VALUES ('{request.form.get('nombre')}','{request.form.get('apellido')}', '{request.form.get('nombre_usuario')}', '{password}', {numero_telefono})")
+                db.execute(f"INSERT INTO usuarios (nombre, apellido, nombre_usuario, hash, numero_telefono, activo) VALUES ('{request.form.get('nombre')}','{request.form.get('apellido')}', '{request.form.get('nombre_usuario')}', '{password}', {numero_telefono}, TRUE)")
                 db.commit()
 
             elif not numero_telefono and correo:
-                db.execute(f"INSERT INTO usuarios (nombre, apellido, nombre_usuario, hash, correo) VALUES ('{request.form.get('nombre')}','{request.form.get('apellido')}', '{request.form.get('nombre_usuario')}', '{password}', '{correo}')")
+                db.execute(f"INSERT INTO usuarios (nombre, apellido, nombre_usuario, hash, correo, ativo) VALUES ('{request.form.get('nombre')}','{request.form.get('apellido')}', '{request.form.get('nombre_usuario')}', '{password}', '{correo}', TRUE)")
                 db.commit()
 
             elif not numero_telefono and not correo:
-                db.execute(f"INSERT INTO usuarios (nombre, apellido, nombre_usuario, hash) VALUES ('{request.form.get('nombre')}','{request.form.get('apellido')}', '{request.form.get('nombre_usuario')}', '{password}')")
+                db.execute(f"INSERT INTO usuarios (nombre, apellido, nombre_usuario, hash, activo) VALUES ('{request.form.get('nombre')}','{request.form.get('apellido')}', '{request.form.get('nombre_usuario')}', '{password}', TRUE)")
                 db.commit()
 
             else:
-                db.execute(f"INSERT INTO usuarios (nombre, apellido, nombre_usuario, hash, correo, numero_telefono) VALUES ('{request.form.get('nombre')}','{request.form.get('apellido')}', '{request.form.get('nombre_usuario')}', '{password}', '{correo}', {numero_telefono})")
+                db.execute(f"INSERT INTO usuarios (nombre, apellido, nombre_usuario, hash, correo, numero_telefono, activo) VALUES ('{request.form.get('nombre')}','{request.form.get('apellido')}', '{request.form.get('nombre_usuario')}', '{password}', '{correo}', {numero_telefono}, TRUE)")
                 db.commit()
 
             id = db.execute(f"SELECT id FROM usuarios WHERE nombre_usuario= '{request.form.get('nombre_usuario')}'").fetchone()["id"]
@@ -121,6 +133,12 @@ def login():
 
         session["user_id"] = query['id']
 
+        if query['activo'] == False:
+            db.execute(f"UPDATE usuarios SET activo = true WHERE id = {session['user_id']}")
+            db.commit()
+            flash(f"Bienvenid@ nuevamente {query['nombre']}")
+            return redirect("/")
+        
         return redirect("/")
 
     else:
@@ -171,31 +189,41 @@ def logout():
 def micuenta():
 
     usuario = db.execute(f"SELECT * FROM usuarios WHERE id = {session['user_id']}")
+    publicaciones =  db.execute(f"SELECT id, titulo, descripcion FROM publicaciones WHERE id_user = {session['user_id']} AND disponible = true ORDER BY id DESC")
 
     if request.method == "GET":
-        return render_template("micuenta.html", usuario = usuario)
+        return render_template("micuenta.html", usuario = usuario, publicaciones = publicaciones)
 
     elif request.method == "POST":
+        info = db.execute(f"SELECT * FROM usuarios WHERE id = {session['user_id']}").fetchone()
 
-        if request.form.get('phone') and not request.form.get('phone').isdigit():
+        if request.form.get('phone') == str(info[6]):
+            flash("El nuevo numero de telefono debe ser distinto al anterior", "error")
+            return render_template("micuenta.html", usuario = usuario, publicaciones = publicaciones)
+
+        elif request.form.get('phone') and not request.form.get('phone').isdigit():
             flash("Telefono invalido o con formmato incorrecto", "error")
-            return render_template("micuenta.html", usuario = usuario, error = "phone")
+            return render_template("micuenta.html", usuario = usuario, error = "phone", publicaciones = publicaciones)
 
-        if not request.form.get('phone') and request.form.get('correo'):
+        elif request.form.get('phone') and len(request.form.get("phone")) > 8:
+            flash("Telefono invalido o con formmato incorrecto", "error")
+            return render_template("micuenta.html", usuario = usuario, error = "phone", publicaciones = publicaciones)
+
+        elif not request.form.get('phone') and request.form.get('correo'):
             db.execute(f"UPDATE usuarios SET correo = '{request.form.get('correo')}' WHERE id = {session['user_id']}")
             db.commit()
 
         elif not request.form.get('correo') and request.form.get('phone'):
-            db.execute(f"UPDATE usuarios SET numero_telefono = '{request.form.get('phone')}' WHERE id = {session['user_id']}")
+            db.execute(f"UPDATE usuarios SET numero_telefono = {request.form.get('phone')} WHERE id = {session['user_id']}")
             db.commit()
 
         elif request.form.get('phone') and request.form.get('correo'):
-            db.execute(f"UPDATE usuarios SET correo = '{request.form.get('correo')}', '{request.form.get('phone')}' WHERE id = {session['user_id']}")
+            db.execute(f"UPDATE usuarios SET correo = '{request.form.get('correo')}', numero_telefono = {request.form.get('phone')} WHERE id = {session['user_id']}")
             db.commit()
 
         else:
             flash("Nada que editar", "error")
-            return render_template("micuenta.html", usuario = usuario)
+            return render_template("micuenta.html", usuario = usuario, publicaciones = publicaciones)
 
         flash("Cambios realizados", "exito")
 
@@ -256,7 +284,7 @@ def nuevapublicacion():
 
             cat = db.execute(f"SELECT id from categorias WHERE nombre = '{categoria}'").fetchone()[0]
 
-            db.execute(f"INSERT INTO publicaciones (titulo, descripcion, id_categoria, imagen1, id_user) values ('{titulo}', '{descripcion}', '{cat}', '{rutaImagen1}', '{session['user_id']}')")
+            db.execute(f"INSERT INTO publicaciones (titulo, descripcion, id_categoria, imagen1, disponible, id_user) values ('{titulo}', '{descripcion}', '{cat}', '{rutaImagen1}', True, '{session['user_id']}')")
             db.commit()
 
             flash("Publicado exitosamente")
@@ -268,7 +296,7 @@ def nuevapublicacion():
 
             cat = db.execute(f"SELECT id from categorias WHERE nombre = '{categoria}'").fetchone()[0]
 
-            db.execute(f"INSERT INTO publicaciones (titulo, descripcion, id_categoria, imagen1, id_user) values ('{titulo}', '{descripcion}', '{cat}', '{rutaImagen2}', '{session['user_id']}')")
+            db.execute(f"INSERT INTO publicaciones (titulo, descripcion, id_categoria, imagen1, id_user, disponible) values ('{titulo}', '{descripcion}', '{cat}', '{rutaImagen2}', '{session['user_id']}', True)")
             db.commit()
 
             flash("Publicado exitosamente")
@@ -282,7 +310,7 @@ def nuevapublicacion():
 
             cat = db.execute(f"SELECT id from categorias WHERE nombre = '{categoria}'").fetchone()[0]
 
-            db.execute(f"INSERT INTO publicaciones (titulo, descripcion, id_categoria, imagen1, imagen2, id_user) values ('{titulo}', '{descripcion}', '{cat}', '{rutaImagen1}', '{rutaImagen2}', '{session['user_id']}')")
+            db.execute(f"INSERT INTO publicaciones (titulo, descripcion, id_categoria, imagen1, imagen2, id_user, disponible) values ('{titulo}', '{descripcion}', '{cat}', '{rutaImagen1}', '{rutaImagen2}', '{session['user_id']}', True)")
             db.commit()
 
             flash("Publicado exitosamente")
@@ -290,13 +318,12 @@ def nuevapublicacion():
 
 
 @app.route("/cargar_mas")
+@login_required
 def cargar_mas():
-    publicaciones = db.execute(f"SELECT p.id as pid, p.titulo, p.descripcion, p.imagen1, u.nombre_usuario as user FROM publicaciones p INNER JOIN usuarios u ON p.id_user = u.id WHERE p.id > {session['index'] + 2} ORDER BY p.id DESC LIMIT 2")
+    publicaciones = db.execute(f"SELECT p.id as pid, p.titulo, p.descripcion, p.imagen1, p.disponible, u.nombre_usuario as user, u.activo FROM publicaciones p INNER JOIN usuarios u ON p.id_user = u.id WHERE u.activo = true AND p.disponible = true AND p.id > {session['index']} ORDER BY p.id DESC LIMIT 2")
     
     if db.execute("SELECT * FROM publicaciones").rowcount > session['index']:
         session['index'] += 2
-
-    print(f"Numero de registro: { session['index'] }")
 
     data = []
 
@@ -304,6 +331,16 @@ def cargar_mas():
         data.append(dict(xd))
 
     return jsonify(data)
+
+@app.route("/desactivar_cuenta")
+@login_required
+def desactivar_cuenta():
+    db.execute(f"UPDATE usuarios SET activo = false WHERE id = {session['user_id']}")
+    db.commit()
+    session.clear()
+    flash("Cuenta desactivada correctamente", "exito")
+    return render_template("login.html")
+
 
 @app.route("/detalles", methods = ["GET", "POST"])
 @login_required
@@ -327,3 +364,18 @@ def info():
         db.commit()
 
         return redirect(f"detalles?id={id}")
+
+@app.route("/vendido")
+def vendido():
+    id  = request.args.get('id', type=int)
+
+    row = db.execute(f"SELECT * FROM publicaciones WHERE id = {id} AND id_user = {session['user_id']}")
+
+    if not vendido or not row:
+        return  "Solicitud invalida", 400
+
+    db.execute(f"UPDATE publicaciones SET disponible = false WHERE id = {id} AND id_user = {session['user_id']}")
+    db.commit()
+
+    return {'id de producto': f'{id}', 'vendido': 'true'}, 200
+    
