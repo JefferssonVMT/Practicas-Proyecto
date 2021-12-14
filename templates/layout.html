@@ -55,13 +55,13 @@
   <header>
     {% with messages = get_flashed_messages(with_categories=true) %}
     {% for category, message in messages %}
-    <div class="{{ category }} alert alert-primary text-center p-3" role="alert">{{ message }}</div>
+    <div class="{{ category }} alert alert-primary text-center p-3 mb-0" role="alert">{{ message }}</div>
     {% endfor %}
     {% endwith %}
   </header>
   {% endif %}
 
-  <main class="container m-0 mw-100" id="main">
+  <main class="container m-0 mw-100 pl-0 pr-0" id="main">
     {% block main %}{% endblock %}
   </main>
 

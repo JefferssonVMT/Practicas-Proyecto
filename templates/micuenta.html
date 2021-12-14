@@ -115,7 +115,7 @@ Administrar cuenta
             <strong>Desactivar mi cuenta</strong>
             <button class="btn btn-danger" data-toggle="modal" data-target="#Modal">Desactivar</button>
           </div>
-
+          
           <div class="modal fade" id="Modal" tabindex="-1" role="dialog" aria-labelledby="Modal" aria-hidden="true">
             <div class="modal-dialog modal-dialog-centered" role="document">
               <div class="modal-content">
@@ -152,7 +152,7 @@ Administrar cuenta
 
 {% if publicaciones.rowcount > 0 %}
 <div class="container text-center">
-  <table class="scrolldown table table-striped table-sm">
+  <table class="scrolldown table table-striped table-sm" id="cabecera_tabla">
     <thead class="thead-dark bg-dark justify-content-center">
       <tr>
         <th scope="col"><h4>Mis publicaciones</h4></th>
@@ -162,7 +162,7 @@ Administrar cuenta
     <tbody>
       
       {% for pub in publicaciones %}
-      <tr id="pub{{pub['id']}}">
+      <tr id="pub{{pub['id']}}" class="tabla_filas">
         <td class="post justify-content-between">
           <div class="justify-content-start p-0 m-0">
             <strong class="titulo_dashboard d-flex">{{pub['titulo'][0:20]}}</strong>

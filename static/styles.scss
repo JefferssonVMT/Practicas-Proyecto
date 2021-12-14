@@ -324,3 +324,74 @@ table.scrolldown tbody, table.scrolldown thead {
     }
 }
   
+
+#carousel-img{
+    height: 50vh;
+    object-fit: cover;
+    object-position: center -50px;
+}
+
+#cont_buscar{
+    z-index: 1;
+    position: absolute;
+    bottom: 12%;
+}
+    
+#input_buscar{
+    width: 60vw;
+    margin-bottom: 1%;
+}
+
+#div_buscar{
+    display: flex;
+    justify-content: center;
+    width: 100%;
+}
+
+img{
+    pointer-events: none;
+}
+
+.btn-category{
+    color: white;
+    font-size: xxx-large;
+    background: rgba(152, 44, 191, 0.25);
+    box-shadow: 0 8px 32px 0 rgba(31, 38, 135, 0.37);
+    backdrop-filter: blur(4px);
+    -webkit-backdrop-filter: blur(4px);
+    border-radius: 10px;
+    border: 1px solid rgba(255, 255, 255, 0.18);
+    width: 10%;
+    margin: 1%;
+    justify-content: center;
+    align-content: center;
+    display: grid;
+}
+
+.carousel-caption {
+    position: absolute;
+    right: 15%;
+    left: 15%;
+    z-index: 10;
+    padding-top: 20px;
+    padding-bottom: 20px;
+    color: #fff;
+    text-align: center;
+    bottom: 45%;
+    justify-content: space-around;
+    display: flex;
+}
+
+.cat_text{
+    font-size: small;
+    margin: 0;
+}
+
+#btn_buscar{
+    color: white;
+    font-size: larger;
+    background: rgba(152, 44, 191, 0.25);
+    box-shadow: 0 8px 32px 0 rgba(31, 38, 135, 0.37);
+    border-radius: 10px;
+    border: 1px solid rgba(255, 255, 255, 0.18);
+}

@@ -1,4 +1,5 @@
 import os
+from re import search
 from dotenv import load_dotenv
 from flask import Flask, json, session
 from flask.scaffold import _matching_loader_thinks_module_is_package
@@ -43,7 +44,8 @@ def add_header(r):
 @app.route("/", methods=["GET"])
 @login_required
 def index():
-    session['index'] = 0
+    session['index'] = db.execute("SELECT p.id, u.activo FROM publicaciones p INNER JOIN usuarios u ON p.id_user = u.id WHERE u.activo = true AND p.disponible = true").rowcount
+    
     return render_template("index.html")
 
 @app.route("/register", methods=["GET", "POST"])
@@ -320,16 +322,20 @@ def nuevapublicacion():
 @app.route("/cargar_mas")
 @login_required
 def cargar_mas():
-    publicaciones = db.execute(f"SELECT p.id as pid, p.titulo, p.descripcion, p.imagen1, p.disponible, u.nombre_usuario as user, u.activo FROM publicaciones p INNER JOIN usuarios u ON p.id_user = u.id WHERE u.activo = true AND p.disponible = true AND p.id > {session['index']} ORDER BY p.id DESC LIMIT 2")
-    
-    if db.execute("SELECT * FROM publicaciones").rowcount > session['index']:
-        session['index'] += 2
+    #publicaciones = db.execute(f"SELECT p.id as pid, p.titulo, p.descripcion, p.imagen1, p.disponible, u.nombre_usuario as user, u.activo FROM publicaciones p INNER JOIN usuarios u ON p.id_user = u.id WHERE u.activo = true AND p.disponible = true AND p.id > {session['index']} ORDER BY p.id DESC LIMIT 2")
+    consulta  = f"SELECT p.id as pid, p.titulo, p.descripcion, p.imagen1, p.disponible, u.nombre_usuario as user, u.activo FROM publicaciones p INNER JOIN usuarios u ON p.id_user = u.id WHERE u.activo = true AND p.disponible = true AND p.id <= {session['index']} ORDER BY p.id DESC LIMIT 10"
+    publicaciones = db.execute(consulta)
+    if session['index'] > 0:
+        session['index'] -= 10
 
     data = []
 
+    print(consulta)
     for xd in publicaciones:
         data.append(dict(xd))
+        print(xd)
 
+    print(session['index'])
     return jsonify(data)
 
 @app.route("/desactivar_cuenta")
@@ -378,4 +384,33 @@ def vendido():
     db.commit()
 
     return {'id de producto': f'{id}', 'vendido': 'true'}, 200
+
+
+@app.route("/search")
+def search():
+    q = request.args.get('q')
+    cat_id = request.args.get('id_categoria', type = int)
+
+    if q and not cat_id:
+        consulta  = f"SELECT p.id as pid, p.titulo, p.descripcion, p.imagen1, p.disponible, u.nombre_usuario as user, u.activo FROM publicaciones p INNER JOIN usuarios u ON p.id_user = u.id WHERE u.activo = true AND p.disponible = true AND (UPPER(p.titulo) LIKE UPPER(:q) OR UPPER(p.descripcion) LIKE UPPER(:q) or UPPER(u.nombre_usuario) LIKE UPPER(:q)) ORDER BY p.id DESC LIMIT 15"
+        publicaciones = db.execute(consulta, {'q': '%{}%'.format(q)})
+
+        data = []
+
+        for xd in publicaciones:
+            data.append(dict(xd))
+
+        return jsonify(data)
+
+    elif cat_id and not q:
+        consulta  = f"SELECT p.id as pid, p.titulo, p.descripcion, p.imagen1, p.disponible, p.id_categoria, u.nombre_usuario as user, u.activo FROM publicaciones p INNER JOIN usuarios u ON p.id_user = u.id WHERE u.activo = true AND p.disponible = true AND p.id_categoria = {cat_id} ORDER BY p.id DESC LIMIT 15"
+        publicaciones = db.execute(consulta)
+
+        data = []
+
+        for xd in publicaciones:
+            data.append(dict(xd))
+            print(xd)
+
+        return jsonify(data)
     
