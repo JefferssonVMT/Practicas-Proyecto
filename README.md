@@ -17,3 +17,6 @@ Algunas de las funcionalidades seran:
     - Buscar productos por nombre, vendedor o categoria 
     - Comentar las publicaciones 
     - Posiblemente implemete un sistema de moderacion para las publicaciones y no mostrar las que incluyan malas palabras, insultos y demas usando un diccionario. 
+
+    Como difereciador tiene internacionalización, por lo que se puede usar tanto en ingles como en español todo lo que tiene que ver con interfaz.
+    No se traducen las publicaciones por perdida de precision de la informacion. 
