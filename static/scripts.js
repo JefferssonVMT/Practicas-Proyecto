@@ -60,28 +60,40 @@ function mostrarInfo(data){
 
         var div1 = document.createElement("div");
         div1.className = "publicacion container p-0";
+        div1.id = "public_" + i;
+
+        div1.addEventListener('click', function(){
+            redirect(data[i].pid);
+        })
+
+        var img = document.createElement("img");            
+        img.src = data[i].imagen1;
+        img.className = "pub_imagen";
+        img.alt = "imagen";
+        div1.appendChild(img);
          
         var div2 = document.createElement("div");
         div2.className = "container pl-3 pr-3 pb-0";
         div1.appendChild(div2);
 
-        var user = document.createElement("h4");
+        var user = document.createElement("h6");
+        user.className = "user_pub"
         user.innerHTML = data[i].user;
         div2.appendChild(user);
 
-        var titulo = document.createElement("h5");
-        titulo.innerHTML = data[i].titulo;
+        var titulo = document.createElement("h6");
+        titulo.className = "titulo_pub"
+        if (data[i].titulo.length > 30){
+            titulo.innerHTML = data[i].titulo.substring(0,30) + "...";
+        }
+        else{
+            titulo.innerHTML = data[i].titulo.substring(0,30);
+        }
         div2.appendChild(titulo);
 
-        var desc = document.createElement("p");
+        /*var desc = document.createElement("p");
         desc.innerHTML = data[i].descripcion;
         div2.appendChild(desc);
-
-        var img = document.createElement("img");            
-        img.src = data[i].imagen1;
-        img.className = "p_imagen";
-        img.alt = "imagen";
-        div1.appendChild(img);
 
         var otroDiv = document.createElement("div");
         otroDiv.className = "container text-center";
@@ -98,30 +110,51 @@ function mostrarInfo(data){
         icono.style = "color: gray;"
         link.appendChild(icono);
         link.appendChild(document.createTextNode(" Ver mas..."));
-        otroDiv.appendChild(link);
+        otroDiv.appendChild(link);*/
      
         document.getElementById("pubs").appendChild(div1);
     };
+    
+    if (data.length == 0 && !$("#public_0").length){
+
+        var div1 = document.createElement("div");
+        div1.className = "container d-flex justify-content-center my-5 py-5";
+        
+        texto = document.createElement("h1");
+        texto.innerHTML =  ":c aun no hay nada que mostrar por aquí...";
+        div1.appendChild(texto);
+
+        document.getElementById("pubs").appendChild(div1);
+    }
 };
 
 $(document).ready(function(){
     for(let i = 1; i <= 10; i++){
         $("#cat_"+i).click(function(){
             
+            $(".btn-category").css("border", "1px solid rgba(255, 255, 255, 0.18)")
+
             $.getJSON("/search?id_categoria="+i, function(data){
                 $("#pubs").empty();
                 $("#load").remove();
                 mostrarInfo(data);
                 $("#input_buscar").val("");
             });
+            $("#cat_"+i).css("border-width","5px");
+            $("#cat_"+i).css("border-color","rgb(133, 202, 255)");
         });
 
         $("#cat_"+i).mouseover(function(){
-            $("#cat_"+i).css("color","rgb(38, 228, 38)");
+            $("#cat_"+i).css("color","rgb(133, 202, 255)");
+            $("#cat_"+i).css("width","13%");
+            $("#cat_"+i).css("height","110%");
+            $("#cat_"+i).css("transition","width 0.4s, height 0.4s");
         });
 
         $("#cat_"+i).mouseout(function(){
             $("#cat_"+i).css("color","white");
+            $("#cat_"+i).css("width","10%");
+            $("#cat_"+i).css("height","75%");
         });
     };
 });
@@ -129,3 +162,12 @@ $(document).ready(function(){
 function redirect(id){
     window.location.href = "detalles?id=" + id;
 };
+
+$("#lang").ready(function(){
+    $("#lang").click(function(){
+        $.getJSON("/lang", function(data){
+            console.log(data);
+            location.reload();
+        })
+    })
+})

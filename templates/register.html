@@ -11,33 +11,33 @@ Registro
     <div class="caja" id="register" align="center">
         <form action="/register" method="post">
 
-            <img class="icon" src="static/imagenes/icono.png"/>
+            
 
-            <h3 class="sign pt-2 pb-4" align="center">Registro</h3>
+            <h3 class="sign pt-2 pb-4" align="center">{{  gettext(_('Registro')) }}</h3>
 
             <div class="form-group">
 
                 
                 <input autocomplete="off" align="center" class="form-control username text-center mb-4"
-                    name="nombre_usuario" placeholder="Nombre de usuario *" type="text"/>
+                    name="nombre_usuario" placeholder="{{  gettext(_('Nombre de usuario')) }} *" type="text"/>
 
                 <input autocomplete="off" align="center" class="form-control nombre text-center mb-4"
-                name="nombre" placeholder="Nombre *" type="text"/>
+                name="nombre" placeholder="{{  gettext(_('Nombre')) }} *" type="text"/>
 
                 <input autocomplete="off" align="center" class="form-control nombre text-center mb-4"
-                name="apellido" placeholder="Apellido *" type="text"/>
+                name="apellido" placeholder="{{  gettext(_('Apellido')) }} *" type="text"/>
 
                 <input autocomplete="off" align="center" class="form-control text-center mb-4"
-                name="correo" id="correo" placeholder="Correo electronico *" type="email"/>
+                name="correo" id="correo" placeholder="{{  gettext(_('Correo electronico')) }} *" type="email"/>
 
                 <input class="form-control password text-center mb-4" align="center" name="password"
-                    placeholder="Contraseña *" type="password"/>
+                    placeholder="{{  gettext(_('Contraseña')) }} *" type="password"/>
 
                 <input class="form-control password text-center mb-4" align="center" id="confirmation" name="confirmation"
-                    placeholder="Repetir contraseña *" type="password"/>
+                    placeholder="{{  gettext(_('Repetir contraseña')) }} *" type="password"/>
 
                 <input autocomplete="off" align="center" class="form-control text-center mb-4"
-                name="telefono" id="telefono" placeholder="Telefono" type="tel" minlength="8"/>
+                name="telefono" id="telefono" placeholder="{{  gettext(_('Telefono')) }}" type="tel" minlength="8"/>
                 {% if error %}
                     <style>
                         {% if error == "username" or error == "nombre" %}
@@ -54,11 +54,11 @@ Registro
 
             </div>
             <div class="form-group" align="center">
-                <button class="btn btn-primary my-2 submit" type="submit">Registrar</button>
+                <button class="btn btn-primary my-2 submit" type="submit">{{  gettext(_('Registrar')) }}</button>
             </div>
-            <div id="formFooter">
-            <a href="login" class="linkRegistro">¿Ya tienes una cuenta?</a>
-            </div>
+            
+            <a href="login" class="linkRegistro">{{  gettext(_('¿Ya tienes una cuenta?')) }}</a>
+            
         </form>
     </div>
 </div>

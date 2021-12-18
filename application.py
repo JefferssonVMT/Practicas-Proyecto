@@ -11,6 +11,7 @@ from tempfile import mkdtemp
 from werkzeug.security import check_password_hash, generate_password_hash
 from helpers import login_required
 from werkzeug.utils import secure_filename
+from flask_babel import Babel, gettext
 
 app = Flask(__name__)
 
@@ -22,8 +23,10 @@ if not os.getenv("DATABASE_URL"):
 app.config["SESSION_FILE_DIR"] = mkdtemp()
 app.config["SESSION_PERMANENT"] = False
 app.config["SESSION_TYPE"] = "filesystem"
+app.config["BABEL_DEFAULT_LOCALE"] = "es"
 
 Session(app)
+babel = Babel(app)
 
 # Set up database
 engine = create_engine(os.getenv("DATABASE_URL"))
@@ -41,11 +44,30 @@ def add_header(r):
     r.headers['Cache-Control'] = 'public, max-age=0'
     return r
 
+@babel.localeselector
+def get_locale():
+    if session.get("lang") is None:
+        session["lang"] = "es"
+    
+    return session["lang"]
+    #return request.accept_languages.best_match(['es', 'en'])
+
+@app.route("/lang")
+@login_required
+def lang():
+    if session["lang"] ==  "es":
+        session["lang"] = "en"
+
+    elif session["lang"] == "en":
+        session["lang"] = "es"
+
+    return  {"nuevo lenguaje": session["lang"]}
+
 @app.route("/", methods=["GET"])
 @login_required
 def index():
     session['index'] = db.execute("SELECT p.id, u.activo FROM publicaciones p INNER JOIN usuarios u ON p.id_user = u.id WHERE u.activo = true AND p.disponible = true").rowcount
-    
+    print(session['index'])
     return render_template("index.html")
 
 @app.route("/register", methods=["GET", "POST"])
@@ -89,7 +111,7 @@ def register():
                 db.commit()
 
             elif not numero_telefono and correo:
-                db.execute(f"INSERT INTO usuarios (nombre, apellido, nombre_usuario, hash, correo, ativo) VALUES ('{request.form.get('nombre')}','{request.form.get('apellido')}', '{request.form.get('nombre_usuario')}', '{password}', '{correo}', TRUE)")
+                db.execute(f"INSERT INTO usuarios (nombre, apellido, nombre_usuario, hash, correo, activo) VALUES ('{request.form.get('nombre')}','{request.form.get('apellido')}', '{request.form.get('nombre_usuario')}', '{password}', '{correo}', TRUE)")
                 db.commit()
 
             elif not numero_telefono and not correo:
@@ -238,8 +260,12 @@ def nuevapublicacion():
 
     categorias = []
 
-    for cat in row:
-        categorias.append(cat[0])
+    if session['lang'] == 'es':
+        for cat in row:
+            categorias.append(cat[0])
+    elif session['lang'] == 'en':
+        for cat in row:
+            categorias.append(gettext(cat[0]))
 
     if request.method == "GET":
 
@@ -323,7 +349,7 @@ def nuevapublicacion():
 @login_required
 def cargar_mas():
     #publicaciones = db.execute(f"SELECT p.id as pid, p.titulo, p.descripcion, p.imagen1, p.disponible, u.nombre_usuario as user, u.activo FROM publicaciones p INNER JOIN usuarios u ON p.id_user = u.id WHERE u.activo = true AND p.disponible = true AND p.id > {session['index']} ORDER BY p.id DESC LIMIT 2")
-    consulta  = f"SELECT p.id as pid, p.titulo, p.descripcion, p.imagen1, p.disponible, u.nombre_usuario as user, u.activo FROM publicaciones p INNER JOIN usuarios u ON p.id_user = u.id WHERE u.activo = true AND p.disponible = true AND p.id <= {session['index']} ORDER BY p.id DESC LIMIT 10"
+    consulta  = f"SELECT p.id as pid, p.titulo, p.descripcion, p.imagen1, p.disponible, u.nombre_usuario as user, u.activo FROM publicaciones p INNER JOIN usuarios u ON p.id_user = u.id WHERE u.activo = true AND p.disponible = true AND p.id <= {session['index']} ORDER BY p.id DESC LIMIT 12"
     publicaciones = db.execute(consulta)
     if session['index'] > 0:
         session['index'] -= 10

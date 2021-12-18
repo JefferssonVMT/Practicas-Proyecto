@@ -1,7 +1,7 @@
 {% extends "layout.html" %}
 
 {% block title %}
-Comunidad Emprendedora
+LoQuieroxni
 {% endblock %}
 
 {% block body_script %}cargar_mas(){% endblock %}
@@ -15,24 +15,32 @@ Comunidad Emprendedora
     <div class="carousel-item active">
       <img id="carousel-img" class="d-block w-100" src="static\imagenes\banner.png" alt="Imagen" disabled>
     </div>
+
+    <label class="switchBtn">
+      <input type="checkbox" id="lang">
+      <div class="switch round d-flex align-items-center">En</div>
+    </label>
+
     <div class="carousel-caption">
-      <a id="cat_1" class="btn btn-default btn-category"><i class="fas fa-tshirt"></i><p class="cat_text">Ropa y accesorios</p></a>
-      <a id="cat_2" class="btn btn-default btn-category"><i class="fas fa-laptop"></i><p class="cat_text">Electrónica</p></a>
-      <a id="cat_3" class="btn btn-default btn-category"><i class="fas fa-users"></i><p class="cat_text">Familia</p></a>
-      <a id="cat_4" class="btn btn-default btn-category"><i class="fas fa-house-user"></i><p class="cat_text">Hogar y jardin</p></a>
-      <a id="cat_5" class="btn btn-default btn-category"><i class="fas fa-car"></i><p class="cat_text">Vehículos</p></a>
-      <a id="cat_6" class="btn btn-default btn-category"><i class="far fa-handshake"></i><p class="cat_text">Clasificados</p></a>
-      <a id="cat_7" class="btn btn-default btn-category"><i class="fas fa-tags"></i><p class="cat_text">Ofertas</p></a>
-      <a id="cat_8" class="btn btn-default btn-category"><i class="fas fa-gamepad"></i><p class="cat_text">Entretenimiento</p></a>
-      <a id="cat_9" class="btn btn-default btn-category"><i class="fas fa-icons"></i><p class="cat_text">Pasatiempos</p></a>
-      <a id="cat_10" class="btn btn-default btn-category"><i class="fas fa-home"></i><p class="cat_text">Vivienda</p></a>
+      <div id="car_items">
+      <a id="cat_1" class="btn btn-default btn-category"><i class="fas fa-tshirt"></i><p class="cat_text">{{  gettext(_('Ropa y accesorios')) }}</p></a>
+      <a id="cat_2" class="btn btn-default btn-category"><i class="fas fa-laptop"></i><p class="cat_text">{{  gettext(_('Electrónica')) }}</p></a>
+      <a id="cat_3" class="btn btn-default btn-category"><i class="fas fa-users"></i><p class="cat_text">{{  gettext(_('Familia')) }}</p></a>
+      <a id="cat_4" class="btn btn-default btn-category"><i class="fas fa-house-user"></i><p class="cat_text">{{  gettext(_('Hogar y jardin')) }}</p></a>
+      <a id="cat_5" class="btn btn-default btn-category"><i class="fas fa-car"></i><p class="cat_text">{{  gettext(_('Vehículos')) }}</p></a>
+      <a id="cat_6" class="btn btn-default btn-category"><i class="far fa-handshake"></i><p class="cat_text">{{  gettext(_('Clasificados')) }}</p></a>
+      <a id="cat_7" class="btn btn-default btn-category"><i class="fas fa-tags"></i><p class="cat_text">{{  gettext(_('Ofertas')) }}</p></a>
+      <a id="cat_8" class="btn btn-default btn-category"><i class="fas fa-gamepad"></i><p class="cat_text">{{  gettext(_('Entretenimiento')) }}</p></a>
+      <a id="cat_9" class="btn btn-default btn-category"><i class="fas fa-icons"></i><p class="cat_text">{{  gettext(_('Pasatiempos')) }}</p></a>
+      <a id="cat_10" class="btn btn-default btn-category"><i class="fas fa-home"></i><p class="cat_text">{{  gettext(_('Vivienda')) }}</p></a>
     </div>
+  </div>
     <div class="container-fluid text-center" id="cont_buscar">
         <div id="div_buscar">
-            <input type="text" class="form-control" name="busqueda" id="input_buscar" placeholder="Busca algo de tu interes">
+            <input type="text" class="form-control" name="busqueda" id="input_buscar" placeholder="{{  gettext(_('Busca algo de tu interes')) }}">
         </div>
         
-        <input type="button" class="btn btn-primary" id="btn_buscar" value="Buscar">    
+        <input type="button" class="btn btn-primary" id="btn_buscar" value="{{  gettext(_('Buscar')) }}">    
     </div>
   </div>
 </div>
@@ -44,7 +52,7 @@ Comunidad Emprendedora
 
 {% block more %}
 <div id="load" class="container text-center">
-    <button class="btn btn-primary m-3" onclick="cargar_mas()">Cargar mas...</button>
+    <button class="btn btn-primary m-3" onclick="cargar_mas()">{{  gettext(_('Cargar mas...')) }}</button>
 </div>
 
 {% endblock %}

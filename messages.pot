@@ -1,0 +1,290 @@
+# Translations template for PROJECT.
+# Copyright (C) 2021 ORGANIZATION
+# This file is distributed under the same license as the PROJECT project.
+# FIRST AUTHOR <EMAIL@ADDRESS>, 2021.
+#
+#, fuzzy
+msgid ""
+msgstr ""
+"Project-Id-Version: PROJECT VERSION\n"
+"Report-Msgid-Bugs-To: EMAIL@ADDRESS\n"
+"POT-Creation-Date: 2021-12-18 04:52-0600\n"
+"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
+"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"Language-Team: LANGUAGE <LL@li.org>\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=utf-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Generated-By: Babel 2.9.1\n"
+
+#: templates/actualizarcontraseña.html:5 templates/actualizarcontraseña.html:42
+msgid "Actualizar contraseña"
+msgstr "Change password"
+
+#: templates/actualizarcontraseña.html:16
+msgid "Actualizar Contraseña"
+msgstr "Change password"
+
+#: templates/actualizarcontraseña.html:21 templates/login.html:22
+#: templates/register.html:34
+msgid "Contraseña"
+msgstr "Password"
+
+#: templates/actualizarcontraseña.html:24 templates/register.html:37
+msgid "Repetir contraseña"
+msgstr "Password confirmation"
+
+#: templates/detalles.html:6
+msgid "Detalles"
+msgstr "Details"
+
+#: templates/detalles.html:17
+msgid "Numero telefonico: "
+msgstr "Phone number: "
+
+#: templates/detalles.html:21
+msgid "Este usuario aun no ha proporcionado informacion de numero telefonico"
+msgstr "This user has not provided phone number information yet"
+
+#: templates/detalles.html:26
+msgid "Correo electronico: "
+msgstr "Email: "
+
+#: templates/detalles.html:30
+msgid "Este usuario aun no ha proporcionado informacion de correo electronico"
+msgstr "This user has not provided e-mail information yet"
+
+#: templates/detalles.html:46
+msgid "Di algo acerca de esto:"
+msgstr "Say something about this:"
+
+#: templates/detalles.html:49
+msgid "Escribe un comentario..."
+msgstr "Write a comment..."
+
+#: templates/detalles.html:50
+msgid "Comentar"
+msgstr "Comment"
+
+#: templates/detalles.html:56
+msgid " dijo:"
+msgstr "said:"
+
+#: templates/index.html:26
+msgid "Ropa y accesorios"
+msgstr "Clothes and accessories"
+
+#: templates/index.html:27
+msgid "Electrónica"
+msgstr "Electronics"
+
+#: templates/index.html:28
+msgid "Familia"
+msgstr "Family"
+
+#: templates/index.html:29
+msgid "Hogar y jardin"
+msgstr "Home & garden"
+
+#: templates/index.html:30
+msgid "Vehículos"
+msgstr "Vehicles"
+
+#: templates/index.html:31
+msgid "Clasificados"
+msgstr "Classified"
+
+#: templates/index.html:32
+msgid "Ofertas"
+msgstr "Offers"
+
+#: templates/index.html:33
+msgid "Entretenimiento"
+msgstr "Entertainment"
+
+#: templates/index.html:34
+msgid "Pasatiempos"
+msgstr "Hobbies"
+
+#: templates/index.html:35
+msgid "Vivienda"
+msgstr "Houses"
+
+#: templates/index.html:40
+msgid "Busca algo de tu interes"
+msgstr "search something!"
+
+#: templates/index.html:43
+msgid "Buscar"
+msgstr "Search"
+
+#: templates/index.html:55
+msgid "Cargar mas..."
+msgstr "Load more..."
+
+#: templates/layout.html:43
+msgid "Mi cuenta"
+msgstr "Account"
+
+#: templates/layout.html:45
+msgid "Cerrar sesión"
+msgstr "Log out"
+
+#: templates/login.html:5
+msgid "Iniciar sesion"
+msgstr "Sign in"
+
+#: templates/login.html:16 templates/login.html:24
+msgid "Iniciar sesión"
+msgstr "Sign in"
+
+#: templates/login.html:20
+msgid "Correo o nombre de usuario"
+msgstr "E-mail or username"
+
+#: templates/login.html:36
+msgid "¿No tienes una cuenta?"
+msgstr "Create a new account"
+
+#: templates/micuenta.html:17
+msgid "Tus Datos de usuario"
+msgstr "Dashboard"
+
+#: templates/micuenta.html:20
+msgid "Nombre de usuario:"
+msgstr "Username:"
+
+#: templates/micuenta.html:28
+msgid "Nombre:"
+msgstr "Name:"
+
+#: templates/micuenta.html:36
+msgid "Apellido:"
+msgstr "Last name:"
+
+#: templates/micuenta.html:45 templates/micuenta.html:52
+msgid "Teléfono:"
+msgstr "Phone number:"
+
+#: templates/micuenta.html:54
+msgid "Numero telefonico"
+msgstr "Phone number"
+
+#: templates/micuenta.html:69 templates/micuenta.html:76
+msgid "Correo:"
+msgstr "E-mail"
+
+#: templates/micuenta.html:78 templates/register.html:31
+msgid "Correo electronico"
+msgstr "E-mail"
+
+#: templates/micuenta.html:87
+msgid "Cambiar contraseña"
+msgstr "Change password"
+
+#: templates/micuenta.html:89 templates/micuenta.html:107
+msgid "Guardar"
+msgstr " Save  "
+
+#: templates/micuenta.html:96
+msgid "Actualizar información"
+msgstr "Update information"
+
+#: templates/micuenta.html:102
+msgid "¿Estas seguro que deseas modificar tu información de usuario?"
+msgstr "¿Are  you sure you want to change your personal information?"
+
+#: templates/micuenta.html:105 templates/micuenta.html:135
+msgid "Cancelar"
+msgstr "Cancel"
+
+#: templates/micuenta.html:115
+msgid "Desactivar mi cuenta"
+msgstr "Deactivate account"
+
+#: templates/micuenta.html:116
+msgid "Desactivar"
+msgstr "Deactivate"
+
+#: templates/micuenta.html:123
+msgid "Desactivacion de la cuenta"
+msgstr "Deactivate account"
+
+#: templates/micuenta.html:129
+msgid ""
+"Esta accion desactivará tu cuenta, los demas usuarios no podran comentar "
+"ni ver tu publicaciones."
+msgstr "This action will deactivate your account, other users will not be able to comment or see your publications."
+
+#: templates/micuenta.html:130
+msgid "Tu cuenta será reactivada la proxima vez que inicies sesion."
+msgstr "Your account will be reactivated the next time you log in."
+
+#: templates/micuenta.html:132
+msgid "¿Estas seguro que deseas desactivar tu cuenta?"
+msgstr "¿Are you sure you want to deactivate your account?"
+
+#: templates/micuenta.html:137
+msgid "Aceptar"
+msgstr "Accept"
+
+#: templates/micuenta.html:159
+msgid "Mis publicaciones"
+msgstr "My posts"
+
+#: templates/nuevapublicacion.html:15
+msgid "Titulo"
+msgstr "Title"
+
+#: templates/nuevapublicacion.html:19
+msgid "Ingresa una descripcion"
+msgstr "Write a description"
+
+#: templates/nuevapublicacion.html:25
+msgid "Categoria"
+msgstr "Category"
+
+#: templates/nuevapublicacion.html:37
+msgid "Imagen 1"
+msgstr "Image 1"
+
+#: templates/nuevapublicacion.html:41
+msgid "Imagen 2"
+msgstr "Image 2"
+
+#: templates/nuevapublicacion.html:48
+msgid "Subir"
+msgstr "Upload"
+
+#: templates/register.html:16
+msgid "Registro"
+msgstr "Register"
+
+#: templates/register.html:22
+msgid "Nombre de usuario"
+msgstr "Username"
+
+#: templates/register.html:25
+msgid "Nombre"
+msgstr "Name"
+
+#: templates/register.html:28
+msgid "Apellido"
+msgstr "Last name"
+
+#: templates/register.html:40
+msgid "Telefono"
+msgstr "Phone number"
+
+#: templates/register.html:57
+msgid "Registrar"
+msgstr "Register"
+
+#: templates/register.html:60
+msgid "¿Ya tienes una cuenta?"
+msgstr "Sign in"
+
+#: templates/detalles.html:50
+msgid "Comentar"
+msgstr "Comment"
+

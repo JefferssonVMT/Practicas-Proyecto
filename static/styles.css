@@ -11,9 +11,7 @@
 }
 
 body, html {
-  background: -webkit-gradient(linear, left top, left bottom, from(#daeff6), color-stop(#d2edf3), to(#d8e5fa));
-  background: linear-gradient(#daeff6, #d2edf3, #d8e5fa);
-  background-attachment: fixed;
+  background-color: #fbfbfd;
 }
 
 .dropdown-menu.show {
@@ -30,9 +28,11 @@ body, html {
   align-content: center;
   color: #0d2c3a;
   font-weight: bold;
-  font-size: 23px;
+  height: 100vh;
+  align-items: center;
   margin-bottom: 0%;
   padding-bottom: 0%;
+  background: url("/static/imagenes/fondo.jpg");
 }
 .login-box a {
   text-shadow: 0px 0px 3px rgba(117, 117, 117, 0.12);
@@ -52,18 +52,43 @@ body, html {
 
 #login {
   width: 450px;
-  height: 450px;
+  height: 30vh;
   margin: 7em auto;
+  background-color: #ffffffeb;
+  align-items: center;
+  display: inline-grid;
+  background: rgba(255, 255, 255, 0.73);
+  box-shadow: 0 8px 32px 0 rgba(31, 38, 135, 0.37);
+  backdrop-filter: blur(4px);
+  -webkit-backdrop-filter: blur(4px);
+  border-radius: 10px;
+  border: 1px solid rgba(255, 255, 255, 0.18);
+}
+@media only screen and (max-width: 600px) {
+  #login {
+    height: 50vh;
+    width: 90vw;
+  }
 }
 
 #register {
-  width: 500px;
+  width: 25vw;
   margin: 4%;
+  margin: 7em auto;
+  align-items: center;
+  display: inline-grid;
+  background: rgba(255, 255, 255, 0.73);
+  box-shadow: 0 8px 32px 0 rgba(31, 38, 135, 0.37);
+  backdrop-filter: blur(4px);
+  -webkit-backdrop-filter: blur(4px);
+  border-radius: 10px;
+  border: 1px solid rgba(255, 255, 255, 0.18);
+  height: 60vh;
 }
 @media only screen and (max-width: 600px) {
   #register {
-    margin-top: 8%;
-    margin-bottom: 8%;
+    width: 90vw;
+    height: 75vh;
   }
 }
 
@@ -104,7 +129,6 @@ cam_pass {
 .password {
   width: 76%;
   color: #666565;
-  font-family: serif;
   font-weight: 700;
   font-size: 14px;
   letter-spacing: 1px;
@@ -156,15 +180,20 @@ a.submit {
 
 textarea {
   resize: none;
+  border-radius: 6px;
 }
 
 .publicacion {
-  width: 50rem;
+  width: 20rem;
+  height: 18rem;
   background: rgba(255, 255, 255, 0.7);
   box-shadow: 0 8px 32px 0 rgba(31, 38, 135, 0.37);
   border-radius: 10px;
   border: 1px solid rgba(255, 255, 255, 0.18);
   margin-top: 2vh;
+  margin-left: 1vh;
+  margin-right: 1vh;
+  overflow: hidden;
 }
 @media only screen and (max-width: 600px) {
   .publicacion {
@@ -172,11 +201,29 @@ textarea {
   }
 }
 
+#pub_imgs {
+  border-radius: 6px;
+  overflow: hidden;
+  border: double black 1px;
+}
+@media only screen and (max-width: 600px) {
+  #pub_imgs {
+    flex-wrap: wrap;
+  }
+}
+
 .p_imagen {
-  height: 23rem;
+  height: 50vh;
   width: 100%;
   object-fit: cover;
-  padding-bottom: 1%;
+  margin: 2px;
+  border-radius: 6px;
+}
+
+.pub_imagen {
+  height: 85%;
+  width: 100%;
+  object-fit: cover;
 }
 
 #comm_form {
@@ -217,6 +264,12 @@ textarea {
 #plus {
   position: absolute;
   right: 50%;
+  background: rgba(44, 74, 191, 0.25);
+  box-shadow: 0 8px 32px 0 rgba(31, 38, 135, 0.37);
+  backdrop-filter: blur(4px);
+  -webkit-backdrop-filter: blur(4px);
+  border-radius: 10px;
+  border: 1px solid rgba(255, 255, 255, 0.18);
 }
 @media only screen and (max-width: 600px) {
   #plus {
@@ -309,6 +362,16 @@ table.scrolldown tbody {
   position: absolute;
   bottom: 12%;
 }
+@media only screen and (max-width: 600px) {
+  #cont_buscar {
+    bottom: 17%;
+  }
+}
+@media only screen and (min-width: 600px) and (max-width: 1130px) {
+  #cont_buscar {
+    bottom: 15%;
+  }
+}
 
 #input_buscar {
   width: 60vw;
@@ -328,17 +391,32 @@ img {
 .btn-category {
   color: white;
   font-size: xxx-large;
-  background: rgba(152, 44, 191, 0.25);
+  background: rgba(44, 74, 191, 0.25);
   box-shadow: 0 8px 32px 0 rgba(31, 38, 135, 0.37);
   backdrop-filter: blur(4px);
   -webkit-backdrop-filter: blur(4px);
   border-radius: 10px;
   border: 1px solid rgba(255, 255, 255, 0.18);
   width: 10%;
+  height: 75%;
   margin: 1%;
   justify-content: center;
   align-content: center;
   display: grid;
+}
+@media only screen and (max-width: 600px) {
+  .btn-category {
+    font-size: unset;
+    width: 18vw;
+    height: 20vw;
+  }
+}
+@media only screen and (min-width: 600px) and (max-width: 1130px) {
+  .btn-category {
+    font-size: unset;
+    width: 13vw;
+    height: 15vw;
+  }
 }
 
 .carousel-caption {
@@ -350,23 +428,142 @@ img {
   padding-bottom: 20px;
   color: #fff;
   text-align: center;
-  bottom: 45%;
+  bottom: 40%;
   justify-content: space-around;
   display: flex;
+}
+@media only screen and (max-width: 600px) {
+  .carousel-caption {
+    left: 0;
+    right: 0;
+    width: 100vw;
+  }
 }
 
 .cat_text {
   font-size: small;
   margin: 0;
 }
+@media only screen and (max-width: 600px) {
+  .cat_text {
+    font-size: 11px;
+  }
+}
 
 #btn_buscar {
   color: white;
   font-size: larger;
-  background: rgba(152, 44, 191, 0.25);
+  background: rgba(44, 74, 191, 0.25);
   box-shadow: 0 8px 32px 0 rgba(31, 38, 135, 0.37);
   border-radius: 10px;
   border: 1px solid rgba(255, 255, 255, 0.18);
+}
+
+#car_items {
+  display: flex;
+  width: 100%;
+  align-items: center;
+}
+@media only screen and (max-width: 600px) {
+  #car_items {
+    display: flex;
+    flex-wrap: wrap;
+  }
+}
+
+#pubs {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+}
+
+.user_pub {
+  font-weight: bold;
+  color: darkblue;
+  margin-bottom: 0;
+}
+
+.titulo_pub {
+  margin-bottom: 0;
+}
+
+#perfil {
+  background: #e8e8e8;
+  display: flex;
+}
+
+#footer {
+  position: absolute;
+  margin: 0;
+  font-size: small;
+  background-color: #eaeaea;
+  width: 100%;
+  padding-left: 1.5%;
+}
+
+.switchBtn {
+  position: relative;
+  display: inline-block;
+  width: 55px;
+  height: 30px;
+  position: absolute;
+  right: 0;
+  margin-right: 1%;
+  margin-top: 1%;
+}
+
+.switchBtn input {
+  display: none;
+}
+
+.switch {
+  position: absolute;
+  cursor: pointer;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-color: #ccc;
+  -webkit-transition: 0.4s;
+  transition: 0.4s;
+  padding: 6px;
+  color: #fff;
+}
+
+.switch:before {
+  position: absolute;
+  content: "";
+  height: 24px;
+  width: 24px;
+  left: 27px;
+  bottom: 3px;
+  background-color: white;
+  -webkit-transition: 0.4s;
+  transition: 0.4s;
+}
+
+input:checked + .switch {
+  background-color: #0CB355;
+  padding-left: 30px;
+}
+
+input:focus + .switch {
+  box-shadow: 0 0 1px #01aeed;
+}
+
+input:checked + .switch:before {
+  -webkit-transform: translateX(9px);
+  -ms-transform: translateX(9px);
+  transform: translateX(9px);
+  left: -5px;
+}
+
+.switch.round {
+  border-radius: 34px;
+}
+
+.switch.round:before {
+  border-radius: 50%;
 }
 
 /*# sourceMappingURL=styles.css.map */

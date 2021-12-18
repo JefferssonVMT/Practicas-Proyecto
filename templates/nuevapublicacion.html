@@ -12,17 +12,17 @@ Nueva publicacion
 
             <div class="row pt-2 ml-1 mr-1 mt-2">
                 <div class="col-sm-12">
-                    <input type="text" placeholder="Titulo" class="form-control" name="titulo" id="titulo"></input>
+                    <input type="text" placeholder="{{  gettext(_('Titulo')) }}" class="form-control" name="titulo" id="titulo"></input>
                 </div>
 
                 <div class="col-sm-12 mt-2">
-                    <textarea type="text" placeholder="Ingresa una descripcion" class="form-control" name="nota"
+                    <textarea type="text" placeholder="{{  gettext(_('Ingresa una descripcion')) }}" class="form-control" name="nota"
                         id="nota"></textarea>
                 </div>
                 <div class="col-sm-12 mt-2">
 
                     <select class="form-control" name="categoria" />
-                    <option selected="" disabled>Categoria</option>
+                    <option selected="" disabled>{{  gettext(_('Categoria')) }}</option>
 
                     {% for categoria in categorias %}
                     <option value="{{ categoria }}">{{ categoria }}</option>
@@ -34,18 +34,18 @@ Nueva publicacion
 
             <div class="row mt-3 ml-1 mr-1">
                 <div class="col-6">
-                    <label for="exampleFormControlFile1">Imagen 1</label>
+                    <label for="exampleFormControlFile1">{{  gettext(_('Imagen 1')) }}</label>
                     <input type="file" accept="image/*" class="form-control-file" name="imagen1">
                 </div>
                 <div class="col-6">
-                    <label for="exampleFormControlFile1">Imagen 2</label>
+                    <label for="exampleFormControlFile1">{{  gettext(_('Imagen 2')) }}</label>
                     <input type="file" accept="image/*" class="form-control-file" name="imagen2">
                 </div>
             </div>
 
             <br>
             <div class="form-group" align="center">
-                <button class="btn btn-primary my-2 submit" type="submit">Subir</button>
+                <button class="btn btn-primary my-2 submit" type="submit">{{  gettext(_('Subir')) }}</button>
             </div>
 
         </form>

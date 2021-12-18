@@ -11,7 +11,7 @@ Login
     <div class="caja" id="login" align="center">
         <form action="/login" method="post">
 
-            <img class="icon" src="static/imagenes/icono.png" />
+           
 
             <h3 class="sign pt-2 pb-4" align="center">Iniciar sesión</h3>
 
@@ -21,7 +21,7 @@ Login
                 <input class="form-control password text-center mb-2" align="center" name="password"
                     placeholder="Contraseña" type="password" />
                 <div class="form-group" align="center">
-                    <button class="submit" type="submit">Iniciar sesión</button>
+                    <button class="submit btn btn-primary" type="submit">Iniciar sesión</button>
                 </div>
                 {% if error %}
                     <style>
@@ -32,8 +32,8 @@ Login
                     </style>
                 {% endif %}
         </form>
-        <div id="formFooter">
+        
             <a href="register">¿No tienes una cuenta?</a>
-        </div>
+        
     </div>
     {% endblock %}

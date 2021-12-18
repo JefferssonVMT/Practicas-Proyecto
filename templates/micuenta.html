@@ -6,7 +6,7 @@ Administrar cuenta
 
 {% block main %}
 
-<div class="content">
+<div class="content" id="perfil">
 
   <div class="container mt-5">
     <div class="row justify-content-center">
@@ -14,10 +14,10 @@ Administrar cuenta
       <div class="col-12 col-md-6">
         <div class="card" id="user_info">
           <div class="card-body">
-            <h4 class="card-title text-center mb-4">Tus Datos de usuario</h4>
+            <h4 class="card-title text-center mb-4">{{  gettext(_('Tus Datos de usuario')) }}</h4>
             <div class="mb-3 row">
               {%for datos in usuario%}
-              <label for="username" class="col-sm-4 col-form-label">Username:</label>
+              <label for="username" class="col-sm-4 col-form-label">{{  gettext(_('Nombre de usuario:')) }}</label>
               <div class="col-sm-8">
                 <input type="text" form="update-my-profile" class="form-control" id="username" name="username"
                   placeholder="{{datos["nombre_usuario"]}}" disabled value="{{datos["nombre_usuario"]}}">
@@ -25,7 +25,7 @@ Administrar cuenta
 
             </div>
             <div class="mb-3 row">
-              <label for="email" class="col-sm-4 col-form-label">Nombre:</label>
+              <label for="email" class="col-sm-4 col-form-label">{{  gettext(_('Nombre:')) }}</label>
               <div class="col-sm-8">
                 <input type="email" form="update-my-profile" class="form-control" id="email" name="email"
                   placeholder="{{datos["nombre"]}}" disabled value="{{datos["nombre"]}}">
@@ -33,7 +33,7 @@ Administrar cuenta
             </div>
 
             <div class="mb-3 row">
-              <label for="cycle-group" class="col-sm-4 col-form-label">Apellido:</label>
+              <label for="cycle-group" class="col-sm-4 col-form-label">{{  gettext(_('Apellido:')) }}</label>
               <div class="col-sm-8">
                 <input type="text" form="update-my-profile" class="form-control" id="cycle-group" name="cycle-group"
                   placeholder="{{datos["apellido"]}}" disabled value="{{datos["apellido"]}}">
@@ -42,16 +42,16 @@ Administrar cuenta
 
             {% if datos["numero_telefono"]%}
             <div class="mb-3 row">
-              <label for="phone" class="col-sm-4 col-form-label">Teléfono:</label>
+              <label for="phone" class="col-sm-4 col-form-label">{{  gettext(_('Teléfono:')) }}</label>
               <div class="col-sm-8">
                 <input type="tel" form="update-my-profile" class="form-control" id="phone" name="phone" value="{{datos["numero_telefono"]}}">
               </div>
             </div>
             {% else %}
             <div class="mb-3 row">
-              <label for="phone" class="col-sm-4 col-form-label">Teléfono:</label>
+              <label for="phone" class="col-sm-4 col-form-label">{{  gettext(_('Teléfono:')) }}</label>
               <div class="col-sm-8">
-                <input type="tel" form="update-my-profile" class="form-control" id="phone" name="phone" placeholder="Numero telefonico" minlength="8">
+                <input type="tel" form="update-my-profile" class="form-control" id="phone" name="phone" placeholder="{{  gettext(_('Numero telefonico')) }}" minlength="8">
               </div>
               {% if error %}
               <style>
@@ -66,16 +66,16 @@ Administrar cuenta
 
             {% if datos["correo"]%}
             <div class="mb-3 row">
-              <label for="correp" class="col-sm-4 col-form-label">Correo:</label>
+              <label for="correp" class="col-sm-4 col-form-label">{{  gettext(_('Correo:')) }}</label>
               <div class="col-sm-8">
                 <input type="email" form="update-my-profile" class="form-control" id="mail" name="correo" value="{{datos["correo"]}}" disabled>
               </div>
             </div>
             {% else %}
             <div class="mb-3 row">
-              <label for="correp" class="col-sm-4 col-form-label">Correo:</label>
+              <label for="correp" class="col-sm-4 col-form-label">{{  gettext(_('Correo:')) }}</label>
               <div class="col-sm-8">
-                <input type="email" form="update-my-profile" class="form-control" id="mail" name="correo" placeholder="Correo electronico">
+                <input type="email" form="update-my-profile" class="form-control" id="mail" name="correo" placeholder="{{  gettext(_('Correo electronico')) }}">
               </div>
             </div>
             {% endif %}
@@ -84,27 +84,27 @@ Administrar cuenta
 
           <div class="card-footer d-flex justify-content-around p-1 m-1">
             <a href="/actualizarcontraseña" id="cambiar_contraseña" class="p-0">
-              <input type="submit" class="btn btn-primary" id="cam_pass" value="Cambiar contraseña">
+              <input type="submit" class="btn btn-primary" id="cam_pass" value="{{  gettext(_('Cambiar contraseña')) }}">
             </a>
-              <input type="button" value="   Guardar   " class="btn btn-success" data-toggle="modal" data-target="#GuadarInfo" style="height: 100%;">
+              <input type="button" value="   {{  gettext(_('Guardar')) }}   " class="btn btn-success" data-toggle="modal" data-target="#GuadarInfo" style="height: 100%;">
           </div>
 
           <div class="modal fade" id="GuadarInfo" tabindex="-1" role="dialog" aria-labelledby="Modal" aria-hidden="true">
             <div class="modal-dialog modal-dialog-centered" role="document">
               <div class="modal-content">
                 <div class="modal-header">
-                  <h5 class="modal-title" id="exampleModalLongTitle">Actualizar información</h5>
+                  <h5 class="modal-title" id="exampleModalLongTitle">{{  gettext(_('Actualizar información')) }}</h5>
                   <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                     <span aria-hidden="true">&times;</span>
                   </button>
                 </div>
                 <div class="modal-body">
-                  <p>¿Estas seguro que deseas modificar tu información de usuario?</p>
+                  <p>{{  gettext(_('¿Estas seguro que deseas modificar tu información de usuario?')) }}</p>
                 </div>
                 <div class="modal-footer">
-                  <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancelar</button>
+                  <button type="button" class="btn btn-secondary" data-dismiss="modal">{{  gettext(_('Cancelar')) }}</button>
                   <form action="/micuenta" id="update-my-profile" method="post">
-                    <input type="submit" value="   Guardar   " class="btn btn-success" data-toggle="modal" data-target="#GuadarInfo" style="height: 100%;">
+                    <input type="submit" value="   {{  gettext(_('Guardar')) }}   " class="btn btn-success" data-toggle="modal" data-target="#GuadarInfo" style="height: 100%;">
                   </form>
                 </div>
               </div>
@@ -112,29 +112,29 @@ Administrar cuenta
           </div>
 
           <div class="card-footer d-flex justify-content-around p-1 m-1">
-            <strong>Desactivar mi cuenta</strong>
-            <button class="btn btn-danger" data-toggle="modal" data-target="#Modal">Desactivar</button>
+            <strong>{{  gettext(_('Desactivar mi cuenta')) }}</strong>
+            <button class="btn btn-danger" data-toggle="modal" data-target="#Modal">{{  gettext(_('Desactivar')) }}</button>
           </div>
           
           <div class="modal fade" id="Modal" tabindex="-1" role="dialog" aria-labelledby="Modal" aria-hidden="true">
             <div class="modal-dialog modal-dialog-centered" role="document">
               <div class="modal-content">
                 <div class="modal-header">
-                  <h5 class="modal-title" id="exampleModalLongTitle">Desactivacion de la cuenta</h5>
+                  <h5 class="modal-title" id="exampleModalLongTitle">{{  gettext(_('Desactivacion de la cuenta')) }}</h5>
                   <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                     <span aria-hidden="true">&times;</span>
                   </button>
                 </div>
                 <div class="modal-body">
-                  <p>Esta accion desactivará tu cuenta, los demas usuarios no podran comentar ni ver tu publicaciones.</p>
-                  <p>Tu cuenta será reactivada la proxima vez que inicies sesion.</p>
+                  <p>{{  gettext(_('Esta accion desactivará tu cuenta, los demas usuarios no podran comentar ni ver tu publicaciones.')) }}</p>
+                  <p>{{  gettext(_('Tu cuenta será reactivada la proxima vez que inicies sesion.')) }}</p>
                   
-                  <strong>¿Estas seguro que deseas desactivar tu cuenta?</strong>
+                  <strong>{{  gettext(_('¿Estas seguro que deseas desactivar tu cuenta?')) }}</strong>
                 </div>
                 <div class="modal-footer">
-                  <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancelar</button>
+                  <button type="button" class="btn btn-secondary" data-dismiss="modal">{{  gettext(_('Cancelar')) }}</button>
                   <form action="/desactivar_cuenta">
-                    <button id="desactivar_cuenta" type="submit" class="btn btn-danger">Aceptar</button>
+                    <button id="desactivar_cuenta" type="submit" class="btn btn-danger">{{  gettext(_('Aceptar')) }}</button>
                   </form>
                 </div>
               </div>
@@ -151,11 +151,12 @@ Administrar cuenta
 </div>
 
 {% if publicaciones.rowcount > 0 %}
+<div class="container-fluid py-5">
 <div class="container text-center">
   <table class="scrolldown table table-striped table-sm" id="cabecera_tabla">
     <thead class="thead-dark bg-dark justify-content-center">
       <tr>
-        <th scope="col"><h4>Mis publicaciones</h4></th>
+        <th scope="col"><h4>{{  gettext(_('Mis publicaciones')) }}</h4></th>
       </tr>
     </thead>
     
@@ -174,6 +175,7 @@ Administrar cuenta
       {% endfor %}
     </tbody>
   </table>
+</div>
 </div>
 
 <br><br>

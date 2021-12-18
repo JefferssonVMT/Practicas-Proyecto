@@ -2,7 +2,7 @@
 
 {%block title%}
 
-Actualizar contraseña
+{{  gettext(_('Actualizar contraseña')) }}
 
 {% endblock%}
 
@@ -13,15 +13,15 @@ Actualizar contraseña
 
             <img class="icon" src="static/imagenes/icono.png"/>
 
-            <h3 class="sign pt-2 pb-4" align="center">Actualizar Contraseña</h3>
+            <h3 class="sign pt-2 pb-4" align="center">{{  gettext(_('Actualizar Contraseña')) }}</h3>
 
             <div class="form-group">
 
                 <input class="form-control password text-center mb-4" align="center" name="password"
-                    placeholder="Contraseña" type="password"/>
+                    placeholder="{{  gettext(_('Contraseña')) }}" type="password"/>
 
                 <input class="form-control password text-center mb-4" id="confirmation" align="center" name="confirmation"
-                    placeholder="Repetir contraseña" type="password"/>
+                    placeholder="{{  gettext(_('Repetir contraseña')) }}" type="password"/>
 
                 {% if error %}
                 <style>
@@ -39,7 +39,7 @@ Actualizar contraseña
 
             </div>
             <div class="form-group" align="center">
-                <button class="btn btn-primary my-2 submit" type="submit">Actualizar contraseña</button>
+                <button class="btn btn-primary my-2 submit" type="submit">{{  gettext(_('Actualizar contraseña')) }}</button>
             </div>
         </form>
     </div>

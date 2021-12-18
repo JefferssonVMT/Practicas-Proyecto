@@ -1,0 +1,14 @@
+
+// Crear babel.cfg y escribir:
+[python: **.py]
+[jinja2: **/templates/**.html]
+extensions=jinja2.ext.autoescape,jinja2.ext.with_
+
+
+pybabel extract -F babel.cfg -o messages.pot .   
+
+pybabel init -i messages.pot -d translations -l en
+
+//  Se edita el .po de la carpeta translations... la version en ingles para cada palabra o frase
+
+pybabel compile -d translations

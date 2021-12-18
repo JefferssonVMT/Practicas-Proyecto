@@ -19,7 +19,7 @@
   <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
   <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script>
   <script src="https://kit.fontawesome.com/349481d2fd.js" crossorigin="anonymous"></script>
-  
+
   <link rel="stylesheet" href="static\styles.css" type="text/css">
   <script src="static\scripts.js"></script>
 
@@ -28,28 +28,30 @@
 <body onload="{% block body_script %}{% endblock %}">
 
   {% if session.user_id %}
-  <nav class="navbar navbar-dark">
-    <a class="navbar-brand" href="/">LoQuieroxni</a>
+  <nav class="navbar d-flex navbar-dark">
+    <a class="navbar-brand" href="/" style="color: rgb(133, 202, 255);font-size: x-large;padding-bottom: 0;padding-top: 0;">LoQuieroxni</a>
     <a class="nav-link" href="/nuevapublicacion" id="plus"><i class="fas fa-plus"></i></a>
 
     <div class="container m-0 p-0" id="drop_cont">
-    <div class="nav-item dropleft">
-      <a class="nav-link dropdown-toggle" id="navbarDropdownMenuLink" role="button" data-toggle="dropdown"
-        style="color: white" aria-haspopup="true" aria-expanded="false">
-        <i class="fas fa-user"></i>
-      </a>
-      <div class="dropdown-menu">
-        <a class="dropdown-item" href="/micuenta">Mi cuenta</a>
-        <a class="dropdown-item" href="/logout">Cerrar sesión</a>
+      <div class="nav-item dropleft">
+
+        <a class="nav-link dropdown-toggle" id="navbarDropdownMenuLink" role="button" data-toggle="dropdown"
+          style="color: white" aria-haspopup="true" aria-expanded="false">
+          <i class="fas fa-user"></i>
+        </a>
+        <div class="dropdown-menu">
+          <a class="dropdown-item" href="/micuenta">{{ gettext(_('Mi cuenta')) }}</a>
+
+          <a class="dropdown-item" href="/logout">{{ gettext(_('Cerrar sesión')) }}</a>
+        </div>
       </div>
     </div>
-  </div>
     </div>
     </div>
-</nav>
-    {% endif %}
+  </nav>
+  {% endif %}
 
-  
+
 
   {% if get_flashed_messages() %}
   <header>

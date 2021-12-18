@@ -3,59 +3,57 @@
 {% block title %}
 
     {% set dato = publicaciones['titulo'].split(' ') %}
-        Detalles - {{ dato[0] }}
+    {{  gettext(_('Detalles')) }} - {{ dato[0] }}
     {% endblock %}
 
 {% block main %}
 
-<div class="publicacion container p-0">
+<div class="detalle_publicacion container p-0 mt-5">
     <div class="container pl-3 pr-3 pb-0">
         <h4>{{publicaciones['user']}}</h4>
         <h5> {{publicaciones['titulo']}} </h5>
         <p> {{publicaciones['descripcion']}} </p>
         <br>
-        <strong>Numero telefonico: </strong>
+        <strong>{{  gettext(_('Numero telefonico: ')) }}</strong>
         {% if publicaciones['numero'] %}
             <a href="tel:+505{{publicaciones['numero']}}">{{publicaciones['numero']}}</a>
         {% else %}
-            <p>Este usuario aun no ha proporcionado informacion de numero telefonico</p>
+            <p>{{  gettext(_('Este usuario aun no ha proporcionado informacion de numero telefonico')) }}</p>
         {% endif %}
 
         <br>
 
-        <strong>Correo electronico: </strong>
+        <strong>{{  gettext(_('Correo electronico: ')) }}</strong>
         {% if publicaciones['correo'] %}
             <a href="mailto:{{publicaciones['correo']}}">{{publicaciones['correo']}}</a>
         {% else %}
-            <p>Este usuario aun no ha proporcionado informacion de correo electronico</p>
+            <p>{{  gettext(_('Este usuario aun no ha proporcionado informacion de correo electronico')) }}</p>
         {% endif %}
     </div> 
     <br>
 
-    <div class="container d-flex p-0">
+    <div class="container d-flex p-0" id="pub_imgs">
         <img src="/{{publicaciones['imagen1']}}" class="p_imagen" alt="imagen">
         {% if publicaciones['imagen2'] %}
             <img src="/{{publicaciones['imagen2']}}" class="p_imagen" alt="imagen">
         {% endif %}
     </div>
     
-    <div class="container text-center">
-    </div>
 </div>
 
 
 <div class="container mt-5 mb-5" id="comentar">
-    <label for="comentario">Di algo acerca de esto:</label>
+    <label for="comentario">{{  gettext(_('Di algo acerca de esto:')) }}</label>
 
     <form action="/detalles?id={{id}}" id="comm_form" method="POST">
-        <textarea id="comentario" class="text-center" name="comentario" placeholder="Escribe un comentario..." rows="2" cols="125%" required></textarea>
-        <input class="btn btn-primary my-2 submit" id="enviar" type="submit" value="Comentar">
+        <textarea id="comentario" class="text-center" name="comentario" placeholder="{{  gettext(_('Escribe un comentario...')) }}" rows="2" cols="125%" required></textarea>
+        <input class="btn btn-primary my-2 submit" id="enviar" type="submit" value="{{  gettext(_('Comentar')) }}">
     </form>
 </div>
 
 {% for com in comentarios %}
 <div class="container reviews">
-    <strong>{{com['nombre_usuario']}} dijo:</strong>
+    <strong>{{com['nombre_usuario']}} {{  gettext(_(' dijo:')) }}</strong>
 
     {% if com['puntuacion'] %}
     <div class="container p-0 d-flex">
